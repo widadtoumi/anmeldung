@@ -8,7 +8,7 @@ const port = 3000;
 
 const allowedOrigins = [
   "https://anmeldung.netlify.app",
-  "https://anmeldung.netlify.app"
+  "https://anmeldung.netlify.app/generate-pdf"
 ];
 
 app.use(
