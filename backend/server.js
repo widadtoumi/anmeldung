@@ -6,10 +6,7 @@ const puppeteer = require("puppeteer");
 const app = express();
 const port = 3000;
 
-const allowedOrigins = [
-  "https://anmeldung.netlify.app",
-  "https://anmeldung.netlify.app/generate-pdf"
-];
+const allowedOrigins = ["https://anmeldung.netlify.app"];
 
 app.use(
   cors({
@@ -20,6 +17,8 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
+    methods: "POST", // Allow only POST requests
+    allowedHeaders: "Content-Type", // Allow only the Content-Type header
   })
 );
 
@@ -888,18 +887,18 @@ app.post("/generate-pdf", async (req, res) => {
 
 </html>
 `;
-await page.setContent(htmlTemplate);
-const pdf = await page.pdf({ format: "Letter" });
+  await page.setContent(htmlTemplate);
+  const pdf = await page.pdf({ format: "Letter" });
 
-await browser.close();
+  await browser.close();
 
-res.setHeader("Access-Control-Allow-Origin", "*"); // Add this line to set the appropriate CORS header
-res.setHeader("Access-Control-Allow-Methods", "POST"); // Add this line to allow POST requests
-res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Add this line to allow the Content-Type header
-res.contentType("application/pdf");
-res.send(pdf);
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Add this line to set the appropriate CORS header
+  res.setHeader("Access-Control-Allow-Methods", "POST"); // Add this line to allow POST requests
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Add this line to allow the Content-Type header
+  res.contentType("application/pdf");
+  res.send(pdf);
 });
 
 app.listen(port, () => {
-console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
