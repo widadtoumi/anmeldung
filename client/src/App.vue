@@ -1516,9 +1516,9 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          "https://6470d010d560940008313a65--dreamy-marigold-bc8877.netlify.app/generate-pdf",
+          "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app/generate-pdf",
           {
-            formData: this.formData, // Pass the object directly
+            formData: this.formData,
           },
           {
             responseType: "arraybuffer",

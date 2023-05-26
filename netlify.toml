@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://6470d010d560940008313a65--dreamy-marigold-bc8877.netlify.app/:splat"
+  to = "http://localhost:3000/:splat"
   status = 200

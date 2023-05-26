@@ -6,7 +6,7 @@ const puppeteer = require("puppeteer");
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cors({ origin: "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -832,15 +832,15 @@ app.post("/generate-pdf", async (req, res) => {
 
 </html>
 `;
-  await page.setContent(htmlTemplate);
-  const pdf = await page.pdf({ format: "Letter" });
+await page.setContent(htmlTemplate);
+const pdf = await page.pdf({ format: "Letter" });
 
-  await browser.close();
+await browser.close();
 
-  res.contentType("application/pdf");
-  res.send(pdf);
+res.contentType("application/pdf");
+res.send(pdf);
 });
 
 app.listen(port, () => {
-  console.log(`Server running on https://6470d010d560940008313a65--dreamy-marigold-bc8877.netlify.app`);
+console.log(`Server running on http://localhost:${port}`);
 });
