@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://anmeldung.netlify.app/:splat"
+  to = "https://anmeldung.infinityfreeapp.com/:splat"
   status = 200
