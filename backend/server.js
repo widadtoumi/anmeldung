@@ -8,7 +8,7 @@ const port = 3000;
 
 const allowedOrigins = [
   "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app",
-  "https://6470d86260d5910008bfeb04--dreamy-marigold-bc8877.netlify.app",
+  "https://6470db4a1302f91eb27a2955--dreamy-marigold-bc8877.netlify.app",
 ];
 
 app.use(
@@ -893,6 +893,7 @@ app.post("/generate-pdf", async (req, res) => {
 
   await browser.close();
 
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Add this line to set the appropriate CORS header
   res.contentType("application/pdf");
   res.send(pdf);
 });
