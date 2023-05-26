@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://your-netlify-backend-url.netlify.app/:splat"
+  to = "http://localhost:3000/:splat"
   status = 200
