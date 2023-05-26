@@ -6,7 +6,23 @@ const puppeteer = require("puppeteer");
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app" }));
+const allowedOrigins = [
+  "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app",
+  "https://6470d86260d5910008bfeb04--dreamy-marigold-bc8877.netlify.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -449,17 +465,23 @@ app.post("/generate-pdf", async (req, res) => {
                   <div class="bfsc__title">Die neue Wohnung ist</div>
                   <div class="bfsc__checkbox">
                     <input type="checkbox" style="accent-color: black;" id="sole" name="sole"
-                      value="${formData.apartmentNum}" ${formData.apartmentNum===1 ? 'checked' : '' }>
+                      value="${formData.apartmentNum}" ${
+    formData.apartmentNum === 1 ? "checked" : ""
+  }>
                     <label for="sole">alleinige Wohnung</label>
                   </div>
                   <div class="bfsc__checkbox">
                     <input type="checkbox" style="accent-color: black;" id="main" name="main"
-                      value="${formData.apartmentNum}" ${formData.apartmentNum===2 ? 'checked' : '' }>
+                      value="${formData.apartmentNum}" ${
+    formData.apartmentNum === 2 ? "checked" : ""
+  }>
                     <label for="main">Haupt-wohnung</label>
                   </div>
                   <div class="bfsc__checkbox">
                     <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
-                      value="${formData.apartmentNum}" ${formData.apartmentNum===3 ? 'checked' : '' }>
+                      value="${formData.apartmentNum}" ${
+    formData.apartmentNum === 3 ? "checked" : ""
+  }>
                     <label for="secondary">Neben-wohnung</label>
                   </div>
                 </div>
@@ -493,7 +515,9 @@ app.post("/generate-pdf", async (req, res) => {
                   <tbody>
                     <tr>
                       <td style="border: 0px;">${formData.moved}</td>
-                      <td style="border: 0px; border-left: 1px solid;">${formData.postCode}</td>
+                      <td style="border: 0px; border-left: 1px solid;">${
+                        formData.postCode
+                      }</td>
                     </tr>
                   </tbody>
                 </table>
@@ -572,8 +596,10 @@ app.post("/generate-pdf", async (req, res) => {
             <div class="bfsc__row">
               <div class="bfsc__row__title">Wird die bisherige Wohnung beibehalten?</div>
               <div class="bfsc__row__checkbox">
-                <input type="checkbox" style="accent-color: black;" id="no" name="no" value="${formData.previousApart}"
-                  ${formData.previousApart===1 ? 'checked' : '' }>
+                <input type="checkbox" style="accent-color: black;" id="no" name="no" value="${
+                  formData.previousApart
+                }"
+                  ${formData.previousApart === 1 ? "checked" : ""}>
                 <label for="no">Nein</label>
               </div>
               <div class="bfsc__row__checkbox">
@@ -582,12 +608,16 @@ app.post("/generate-pdf", async (req, res) => {
               </div>
               <div class="bfsc__row__checkbox">
                 <input type="checkbox" style="accent-color: black;" id="main" name="main"
-                  value="${formData.previousApart}" ${formData.previousApart===2 ? 'checked' : '' }>
+                  value="${formData.previousApart}" ${
+    formData.previousApart === 2 ? "checked" : ""
+  }>
                 <label for="main">Haupt-wohnung</label>
               </div>
               <div class="bfsc__row__checkbox">
                 <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
-                  value="${formData.previousApart}" ${formData.previousApart===3 ? 'checked' : '' }>
+                  value="${formData.previousApart}" ${
+    formData.previousApart === 3 ? "checked" : ""
+  }>
                 <label for="secondary">Neben-wohnung</label>
               </div>
             </div>
@@ -599,13 +629,17 @@ app.post("/generate-pdf", async (req, res) => {
                 <label for="no">Nein</label>
               </div>
               <div class="bfsc__row__checkbox">
-                <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${formData.havApart}"
-                  ${formData.havApart===1 ? 'checked' : '' }>
+                <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${
+                  formData.havApart
+                }"
+                  ${formData.havApart === 1 ? "checked" : ""}>
                 <label for="yes">Ja, und zwar als</label>
               </div>
               <div class="bfsc__row__checkbox">
-                <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${formData.havApart}"
-                  ${formData.havApart===2 ? 'checked' : '' }>
+                <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${
+                  formData.havApart
+                }"
+                  ${formData.havApart === 2 ? "checked" : ""}>
                 <label for="main">Haupt-wohnung</label>
               </div>
               <div class="bfsc__row__note">
@@ -650,7 +684,9 @@ app.post("/generate-pdf", async (req, res) => {
                 <td style="border-bottom: 0; border-right: 0;" colspan="2">
                   Tag, Ort, Land der Geburt
                 </td>
-                <td style="border-bottom: 0;">${formData.birthDate} , ${formData.birthPlace}, ${formData.nationality}
+                <td style="border-bottom: 0;">${formData.birthDate} , ${
+    formData.birthPlace
+  }, ${formData.nationality}
                 </td>
               </tr>
               <tr>
@@ -663,7 +699,9 @@ app.post("/generate-pdf", async (req, res) => {
                 <td style="border-bottom: 0; border-right: 0;" colspan="2">
                   Staatsangehörigkeiten
                 </td>
-                <td style="border-bottom: 0;">${formData.nationality} ${formData.secondNationality ? ',' : ''}
+                <td style="border-bottom: 0;">${formData.nationality} ${
+    formData.secondNationality ? "," : ""
+  }
                   ${formData.secondNationality} </td>
               </tr>
               <tr>
@@ -685,7 +723,11 @@ app.post("/generate-pdf", async (req, res) => {
                 <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;"  rowspan="2">Familienname, ggf. Doktorgrad Passname</th>
                 <th class="bsft__fht_famist__wrap" style="border-bottom: 0;"  rowspan="1.5">
                   <div class="bsft__fht_famist">Familienmitglied ist:</div>
-                  <div class="bsft__fht">${formData.people.length > 0 ? formData.people[0].LastName : ''}</div>
+                  <div class="bsft__fht">${
+                    formData.people.length > 0
+                      ? formData.people[0].LastName
+                      : ""
+                  }</div>
                 </th>
               </tr>
             </thead>
@@ -695,25 +737,35 @@ app.post("/generate-pdf", async (req, res) => {
                   Vornamen
                   (Rufnamen unterstreichen)
                 </td>
-                <td style="border-bottom: 0;">${formData.people.length > 0 ? formData.people[0].FirstName : ''}</td>
+                <td style="border-bottom: 0;">${
+                  formData.people.length > 0 ? formData.people[0].FirstName : ""
+                }</td>
               </tr>
               <tr>
                 <td style="border-bottom: 0; border-right: 0;" colspan="2">
                   Geburtsname
                 </td>
-                <td style="border-bottom: 0;">${formData.people.length > 0 ? formData.people[0].MaidenName : ''}</td>
+                <td style="border-bottom: 0;">${
+                  formData.people.length > 0
+                    ? formData.people[0].MaidenName
+                    : ""
+                }</td>
               </tr>
               <tr>
                 <td style="border-bottom: 0;  border-right: 0;" colspan="2">
                   Geschlecht
                 </td>
-                <td style="border-bottom: 0;">${formData.people.length > 0 ? formData.people[0].Gender : ''}</td>
+                <td style="border-bottom: 0;">${
+                  formData.people.length > 0 ? formData.people[0].Gender : ""
+                }</td>
               </tr>
               <tr>
                 <td style="border-bottom: 0; border-right: 0;" colspan="2">
                   Tag, Ort, Land der Geburt
                 </td>
-                <td style="border-bottom: 0;">${formData.marriedFrom}, ${formData.marriagePlace},
+                <td style="border-bottom: 0;">${formData.marriedFrom}, ${
+    formData.marriagePlace
+  },
                   ${formData.marriageCountry}, </td>
               </tr>
               <tr>
@@ -751,7 +803,9 @@ app.post("/generate-pdf", async (req, res) => {
             <tbody>
               <tr>
                 <td style="border-right: 0;">${formData.marital}</td>
-                <td style="width: 55%; border-right: 0;">${formData.marriedFrom}, ${formData.marriagePlace},
+                <td style="width: 55%; border-right: 0;">${
+                  formData.marriedFrom
+                }, ${formData.marriagePlace},
                   ${formData.marriageCountry},
                 </td>
                 <td style="width: 20%;"></td>
@@ -773,7 +827,9 @@ app.post("/generate-pdf", async (req, res) => {
             </tr>
             <tr>
               <th style="border-bottom: 0;" colspan="5">
-                <div class="document__fullname">Name, Vorname: ${formData.firstName}</div>
+                <div class="document__fullname">Name, Vorname: ${
+                  formData.firstName
+                }</div>
               </th>
             </tr>
             <tr>
@@ -832,15 +888,15 @@ app.post("/generate-pdf", async (req, res) => {
 
 </html>
 `;
-await page.setContent(htmlTemplate);
-const pdf = await page.pdf({ format: "Letter" });
+  await page.setContent(htmlTemplate);
+  const pdf = await page.pdf({ format: "Letter" });
 
-await browser.close();
+  await browser.close();
 
-res.contentType("application/pdf");
-res.send(pdf);
+  res.contentType("application/pdf");
+  res.send(pdf);
 });
 
 app.listen(port, () => {
-console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
