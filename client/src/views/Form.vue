@@ -38,7 +38,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await axios.post('http://localhost:3000/generate-pdf', {
+        const response = await axios.post('http://https://6470d010d560940008313a65--dreamy-marigold-bc8877.netlify.app/generate-pdf', {
           formData: JSON.stringify(this.formData),
         }, {
           responseType: 'arraybuffer',

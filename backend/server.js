@@ -842,5 +842,5 @@ app.post("/generate-pdf", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://https://6470d010d560940008313a65--dreamy-marigold-bc8877.netlify.app:${port}`);
 });
