@@ -1523,7 +1523,7 @@ export default {
           {
             responseType: "arraybuffer",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/pdf",
             },
           }
         );
