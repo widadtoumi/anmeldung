@@ -7,8 +7,8 @@ const app = express();
 const port = 3000;
 
 const allowedOrigins = [
-  "https://6470d35e6cee640008b60c9c--dreamy-marigold-bc8877.netlify.app",
-  "https://6470dcd223a42618ec1e2366--dreamy-marigold-bc8877.netlify.app"
+  "https://anmeldung.netlify.app/",
+  "https://anmeldung.netlify.app/"
 ];
 
 app.use(
