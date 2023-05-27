@@ -1516,7 +1516,7 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          "https://anmeldung.netlify.app/generate-pdf",
+          "https://anmeldung.infinityfreeapp.com/generate-pdf",
           {
             formData: this.formData,
           },
