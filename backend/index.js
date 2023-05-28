@@ -31,9 +31,9 @@ app.get("/generate-pdf", (req, res) => {
 
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
+  console.log("formData", formData);
 
-  const browser = await puppeteer.launch({ headless: true });
-  console.log("browser", browser);
+  // const browser = await puppeteer.launch({ headless: true });
   // const page = await browser.newPage();
 
 //   const htmlTemplate = `
