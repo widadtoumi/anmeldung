@@ -23,6 +23,10 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get("/generate-pdf", (req, res) => {
+  res.status(405).json({ message: "Method Not Allowed" });
+});
+
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
 
