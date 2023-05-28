@@ -1,7 +1,7 @@
-import express from "express";
-import { urlencoded, json } from "body-parser";
-import cors from "cors";
-import { launch } from "puppeteer";
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const puppeteer = require("puppeteer");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -22,8 +22,8 @@ app.use(
   })
 );
 
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/generate-pdf", (req, res) => {
   res.status(405).json({ message: "Method Not Allowed" });
@@ -32,7 +32,7 @@ app.get("/generate-pdf", (req, res) => {
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
 
-  const browser = await launch();
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   const htmlTemplate = `
