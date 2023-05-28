@@ -1515,7 +1515,7 @@ export default {
 
     async submitForm() {
         const response = await axios.post(
-          "https://anmeldung.adaptable.app/generate-pdf",
+          "https://anmeldung-9wys.onrender.com/generate-pdf",
           {
             formData: this.formData,
           },
