@@ -1516,7 +1516,7 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          "http://anmeldung.infinityfreeapp.com/generate-pdf",
+          "https://anmeldung.adaptable.app/generate-pdf",
           {
             formData: this.formData,
           },

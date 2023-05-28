@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "http://anmeldung.infinityfreeapp.com/:splat"
+  to = "https://anmeldung.adaptable.app/:splat"
   status = 200
