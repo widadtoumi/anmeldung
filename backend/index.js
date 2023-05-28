@@ -32,7 +32,7 @@ app.get("/generate-pdf", (req, res) => {
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
   const htmlTemplate = `
