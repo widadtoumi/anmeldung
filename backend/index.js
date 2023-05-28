@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const puppeteer = require("puppeteer");
-
+require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -33,7 +33,16 @@ app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
 
   const browser = await puppeteer.launch({
-    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
   });
   console.log("browser", browser);
   const page = await browser.newPage();
