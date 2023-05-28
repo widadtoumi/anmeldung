@@ -31,8 +31,7 @@ app.get("/generate-pdf", (req, res) => {
 
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
-  console.log("res:", res);
-  console.log("req:", req);
+
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
@@ -895,7 +894,7 @@ app.post("/generate-pdf", async (req, res) => {
 `;
   await page.setContent(htmlTemplate);
   const pdf = await page.pdf({ format: "Letter" });
-
+  console.log("htmlTemplate", htmlTemplate);
   await browser.close();
 
   res.header("Access-Control-Allow-Origin", "https://anmeldung.netlify.app");
