@@ -4,7 +4,7 @@ const cors = require("cors");
 const puppeteer = require("puppeteer");
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 const allowedOrigins = ["https://anmeldung.netlify.app"];
 
