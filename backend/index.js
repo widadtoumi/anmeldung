@@ -44,7 +44,7 @@ app.post("/generate-pdf", async (req, res) => {
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
-  console.log("browser", browser);
+
   const page = await browser.newPage();
 
   const htmlTemplate = `
@@ -904,15 +904,19 @@ app.post("/generate-pdf", async (req, res) => {
 
 </html>
 `;
-  await page.setContent(htmlTemplate);
-  const pdf = await page.pdf({ format: "Letter" });
+
+  await page.setContent(htmlTemplate, { waitUntil: "networkidle0" });
+
+  const pdfBuffer = await page.pdf({ format: "A4" });
+
   await browser.close();
 
-  res.header("Access-Control-Allow-Origin", "https://anmeldung.netlify.app");
-  res.header("Access-Control-Allow-Methods", "POST");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.contentType("application/pdf");
-  res.send(pdf);
+  res.set({
+    "Content-Disposition": 'attachment; filename="generated.pdf"',
+    "Content-Type": "application/pdf",
+  });
+
+  res.send(pdfBuffer);
 });
 
 app.listen(process.env.PORT || port, "0.0.0.0", () => {
