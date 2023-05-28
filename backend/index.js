@@ -4,37 +4,17 @@ const cors = require("cors");
 const puppeteer = require("puppeteer");
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3000;
 
-const allowedOrigins = ["https://anmeldung.netlify.app"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: "POST",
-    allowedHeaders: "Content-Type",
-  })
-);
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-app.get("/generate-pdf", (req, res) => {
-  res.status(405).json({ message: "Method Not Allowed" });
-});
 
 app.post("/generate-pdf", async (req, res) => {
   const { formData } = req.body;
 
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
-
   const htmlTemplate = `
   <!DOCTYPE html>
 <html lang="en">
@@ -892,19 +872,15 @@ app.post("/generate-pdf", async (req, res) => {
 
 </html>
 `;
-  await page.setContent(htmlTemplate);
-  const pdf = await page.pdf({ format: "Letter" });
+await page.setContent(htmlTemplate);
+const pdf = await page.pdf({ format: "Letter" });
 
-  
-  await browser.close();
+await browser.close();
 
-  res.header("Access-Control-Allow-Origin", "https://anmeldung.netlify.app");
-  res.header("Access-Control-Allow-Methods", "POST");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.contentType("application/pdf");
-  res.send(pdf);
+res.contentType("application/pdf");
+res.send(pdf);
 });
 
-app.listen(process.env.PORT || port, '0.0.0.0', () => {
+app.listen(process.env.PORT || port, "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${process.env.PORT || port}`);
 });
