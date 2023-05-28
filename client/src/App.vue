@@ -1514,7 +1514,6 @@ export default {
     },
 
     async submitForm() {
-      try {
         const response = await axios.post(
           "https://anmeldung.adaptable.app/generate-pdf",
           {
@@ -1531,9 +1530,6 @@ export default {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-      } catch (error) {
-        console.error(error);
-      }
     },
   },
 };
