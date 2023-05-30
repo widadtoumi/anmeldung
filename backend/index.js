@@ -44,7 +44,6 @@ app.post("/generate-pdf", async (req, res) => {
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
-  console.log("browser", browser);
   const page = await browser.newPage();
 
   const htmlTemplate = `
@@ -747,7 +746,7 @@ app.post("/generate-pdf", async (req, res) => {
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
                     Tag, Ort, Land der Geburt
                   </td>
-                  <td style="border-bottom: 0;">${formData.marriedFrom},${formData.marriagePlace ? ',' : ''} ${formData.marriagePlace},
+                  <td style="border-bottom: 0;">${formData.marriedFrom} ${formData.marriagePlace ? ',' : ''} ${formData.marriagePlace} ${formData.marriageCountry ? ',' : ''}
                     ${formData.marriageCountry}, </td>
                 </tr>
                 <tr>
@@ -785,8 +784,8 @@ app.post("/generate-pdf", async (req, res) => {
               <tbody>
                 <tr>
                   <td style="border-right: 0;">${formData.maritalStatusGr[formData.maritalStatus.indexOf(formData.marital)]}</td>
-                  <td>${formData.marriedFrom} ${formData.marriagePlace ? ',' : ''} ${formData.marriagePlace},
-                    ${formData.marriageCountry},
+                  <td>${formData.marriedFrom} ${formData.marriagePlace ? ',' : ''} ${formData.marriagePlace} ${formData.marriageCountry ? ',' : ''} 
+                    ${formData.marriageCountry}
                   </td>
                 </tr>
               </tbody>
