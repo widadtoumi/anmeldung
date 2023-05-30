@@ -47,7 +47,8 @@ app.post("/generate-pdf", async (req, res) => {
   console.log("browser", browser);
   const page = await browser.newPage();
 
-  const htmlTemplate = `<!DOCTYPE html>
+  const htmlTemplate = `
+  <!DOCTYPE html>
   <html lang="en">
   
   <head>
