@@ -1956,7 +1956,6 @@ body {
             text-align: left;
             margin-bottom: 8px;
             color: #333;
-            text-transform: capitalize;
             span {
               font-family: "Merriweather", serif;
               font-size: 16px;
