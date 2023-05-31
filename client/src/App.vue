@@ -767,6 +767,130 @@
                     </v-radio-group>
                   </validation-provider>
                 </div>
+                <div v-if="formData.moveToGermany === 2">
+                  <div class="opf-content">
+                    <div class="opf-section-title">
+                      Was the previous apartment:
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      rules="required"
+                      name="this field"
+                      immediate
+                    >
+                      <v-radio-group
+                        :error-messages="errors"
+                        v-model="formData.keepingPrvAprt"
+                      >
+                        <v-radio
+                          v-for="(
+                            apartment, index
+                          ) in formData.keepingPrvAprtOp"
+                          :key="index"
+                          :label="apartment.name"
+                          :value="apartment.id"
+                        ></v-radio>
+                      </v-radio-group>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">
+                        Street name and number:
+                      </div>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="the address"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="formData.prevAddress"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">Post code and city:</div>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="post code"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="formData.prevPostCode"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Floor number:</div>
+                    <div class="opf-section-desc">
+                      Remember in Europe that ground floor is 0.
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="floor"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="formData.prevFloor"
+                        :error-messages="errors"
+                        outlined
+                        type="number"
+                        data-vv-name="floor"
+                        step="any"
+                        required
+                        min="0"
+                        ref="input"
+                        :rules="[formData.floorRule]"
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">When did you move out:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="moving out date"
+                      rules="required"
+                    >
+                      <v-menu
+                        ref="movingOutDate"
+                        v-model="movingOutDate"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="290px"
+                        min-width="auto"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-text-field
+                            v-model="formData.movedOut"
+                            outlined
+                            placeholder="Date of moving out"
+                            :error-messages="errors"
+                            v-bind="attrs"
+                            required
+                            @blur="movedOut = parseDate(movingOutDateFormatted)"
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="movedOut"
+                          no-title
+                          @input="movingOutDate = false"
+                        ></v-date-picker>
+                      </v-menu>
+                    </validation-provider>
+                  </div>
+                </div>
+
                 <div class="opf-content">
                   <div class="opf-section-title">
                     Will you be keeping your previous apartment:
@@ -824,7 +948,6 @@
                   responsibility for any errors or omissions
                 </div>
               </div>
-
               <v-btn
                 rounded
                 block
@@ -836,7 +959,7 @@
                 type="submit"
                 :disabled="invalid"
               >
-                Finish and save
+                Finish and Download
               </v-btn>
             </form>
           </validation-observer>
@@ -1459,10 +1582,14 @@ export default {
         },
       ],
       address: "",
+      prevAddress: "",
       postCode: "",
+      prevPostCode: "",
       moved: "",
+      movedOut: "",
       city: "",
       floor: 0,
+      prevFloor: 0,
       floorRule: (val) => {
         if (val < 0) return "Please enter a positive number";
         return true;
@@ -1509,6 +1636,21 @@ export default {
         {
           id: 3,
           name: "Yes, and my previous apartment will be my secondary one",
+        },
+      ],
+      keepingPrvAprt: 1,
+      keepingPrvAprtOp: [
+        {
+          id: 1,
+          name: "Your only apartment",
+        },
+        {
+          id: 2,
+          name: "A second apartment, but will be my main one",
+        },
+        {
+          id: 3,
+          name: "A second apartment, but will be a secondary one",
         },
       ],
       havApart: 1,
@@ -1572,6 +1714,16 @@ export default {
         .substr(0, 10)
     ),
     movingDate: false,
+
+    movedOut: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    movingOutDateFormatted: vm.formatDate(
+      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10)
+    ),
+    movingOutDate: false,
   }),
 
   computed: {
@@ -1589,6 +1741,9 @@ export default {
     },
     computedMovedFormatted() {
       return this.formatDate(this.moved);
+    },
+    computedMovedOutFormatted() {
+      return this.formatDate(this.movedOut);
     },
   },
 
@@ -1612,6 +1767,10 @@ export default {
     moved() {
       this.movingDateFormatted = this.formatDate(this.moved);
       this.formData.moved = this.movingDateFormatted;
+    },
+    movedOut() {
+      this.movingOutDateFormatted = this.formatDate(this.moved);
+      this.formData.movedOut = this.movingOutDateFormatted;
     },
   },
 
