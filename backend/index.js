@@ -451,6 +451,23 @@ app.post("/generate-pdf", async (req, res) => {
       .body_wrap .body__signature_section .bss__body {
         min-height: 50px;
       }
+  
+      .bottom-line {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        font-size: 10px;
+      }
+  
+      .bottom-line a {
+        color: black;
+        text-decoration: none;
+      }
+  
+      .hsh {
+        color: grey;
+        font-size: 8px;
+      }
     </style>
   </head>
   
@@ -480,23 +497,17 @@ app.post("/generate-pdf", async (req, res) => {
                     <div class="bfsc__title">Die neue Wohnung ist</div>
                     <div class="bfsc__checkbox">
                       <input type="checkbox" style="accent-color: black;" id="sole" name="sole"
-                        value="${formData.apartmentNum}" ${
-    formData.apartmentNum === 1 ? "checked" : ""
-  }>
+                        value="${formData.apartmentNum}" ${ formData.apartmentNum===1 ? "checked" : "" }>
                       <label for="sole">alleinige Wohnung</label>
                     </div>
                     <div class="bfsc__checkbox">
                       <input type="checkbox" style="accent-color: black;" id="main" name="main"
-                        value="${formData.apartmentNum}" ${
-    formData.apartmentNum === 2 ? "checked" : ""
-  }>
+                        value="${formData.apartmentNum}" ${ formData.apartmentNum===2 ? "checked" : "" }>
                       <label for="main">Haupt-wohnung</label>
                     </div>
                     <div class="bfsc__checkbox">
                       <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
-                        value="${formData.apartmentNum}" ${
-    formData.apartmentNum === 3 ? "checked" : ""
-  }>
+                        value="${formData.apartmentNum}" ${ formData.apartmentNum===3 ? "checked" : "" }>
                       <label for="secondary">Neben-wohnung</label>
                     </div>
                   </div>
@@ -504,26 +515,21 @@ app.post("/generate-pdf", async (req, res) => {
                   <div class="bfsc__col__checkboxes">
                     <div class="bfsc__title">Die (letzte) bisherige Wohnung <br> (im Inland) war</div>
                     <div class="bfsc__checkbox">
-                    <input type="checkbox" style="accent-color: black;" id="sole" name="sole" value="sole"
-                      value="${formData.apartmentNum}" ${
-    formData.previousApart === 1 ? "checked" : ""
-  }>
-                    <label for="sole">alleinige Wohnung</label>
-                  </div>
-                  <div class="bfsc__checkbox">
-                    <input type="checkbox" style="accent-color: black;" id="main" name="main" value="main"
-                      value="${formData.apartmentNum}" ${
-    formData.previousApart === 2 ? "checked" : ""
-  }>
-                    <label for="main">Haupt-wohnung</label>
-                  </div>
-                  <div class="bfsc__checkbox">
-                    <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
-                      value="secondary" value="${formData.apartmentNum}" ${
-    formData.previousApart === 3 ? "checked" : ""
-  }>
-                    <label for="secondary">Neben-wohnung</label>
-                  </div>
+                      <input type="checkbox" style="accent-color: black;" id="sole" name="sole" value="sole"
+                        value="${formData.apartmentNum}" ${ formData.previousApart===1 ? "checked" : "" }>
+                      <label for="sole">alleinige Wohnung</label>
+                    </div>
+                    <div class="bfsc__checkbox">
+                      <input type="checkbox" style="accent-color: black;" id="main" name="main" value="main"
+                        value="${formData.apartmentNum}" ${ formData.previousApart===2 ? "checked" : "" }>
+                      <label for="main">Haupt-wohnung</label>
+                    </div>
+                    <div class="bfsc__checkbox">
+                      <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
+                        value="secondary" value="${formData.apartmentNum}" ${ formData.previousApart===3 ? "checked" : ""
+                        }>
+                      <label for="secondary">Neben-wohnung</label>
+                    </div>
                   </div>
                 </div>
                 <!-- Table: Tag des Einzugs / Postleitzahl, Gemeinde, Ortsteil -->
@@ -540,7 +546,7 @@ app.post("/generate-pdf", async (req, res) => {
                         <td style="border: 0px;">${formData.moved}</td>
                         <td style="border: 0px; border-left: 1px solid;">${
                           formData.postCode
-                        }</td>
+                          }</td>
                       </tr>
                     </tbody>
                   </table>
@@ -555,13 +561,13 @@ app.post("/generate-pdf", async (req, res) => {
                       </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td style="border: 0px;">${formData.movedOut}</td>
-                      <td style="border: 0px; border-left: 1px solid;">${
-                        formData.prevPostCode
-                      }</td>
-                    </tr>
-                  </tbody>
+                      <tr>
+                        <td style="border: 0px;">${formData.movedOut}</td>
+                        <td style="border: 0px; border-left: 1px solid;">${
+                          formData.prevPostCode
+                          }</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
                 <!-- Table: Straße, Hausnummer, Zusätze -->
@@ -576,8 +582,8 @@ app.post("/generate-pdf", async (req, res) => {
                       <tr>
                         <td style="border: 0px;">
                           ${formData.postCode} ${formData.floor ? "," : ""} ${
-    formData.floor
-  }. OG, ${formData.doorSides[formData.doorSide - 1].abr}
+                          formData.floor
+                          }. OG, ${formData.doorSides[formData.doorSide - 1].abr}
                           ${formData.city}
                         </td>
                       </tr>
@@ -586,19 +592,19 @@ app.post("/generate-pdf", async (req, res) => {
                   <div class="divider"></div>
                   <!-- Table: Straße, Hausnummer, Zusätze -->
                   <table class="adress__table">
-                  <thead>
-                    <tr>
-                      <th style="border-left: 0px; border-right: 0px;">Straße, Hausnummer, Zusätze</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="border: 0px;">
-                        ${formData.prevPostCode}, ${formData.prevFloor}. OG
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                    <thead>
+                      <tr>
+                        <th style="border-left: 0px; border-right: 0px;">Straße, Hausnummer, Zusätze</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="border: 0px;">
+                          ${formData.prevPostCode}, ${formData.prevFloor}. OG
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
   
               </div>
@@ -615,9 +621,9 @@ app.post("/generate-pdf", async (req, res) => {
               <tbody>
                 <tr>
                   <td style="border-top: 0;
-                    border-bottom: 0;"></td>
+                      border-bottom: 0;"></td>
                   <td style="border-top: 0;
-                  border-bottom: 0; border-left: 0;"></td>
+                    border-bottom: 0; border-left: 0;"></td>
                 </tr>
               </tbody>
             </table>
@@ -626,9 +632,8 @@ app.post("/generate-pdf", async (req, res) => {
                 <div class="bfsc__row__title">Wird die bisherige Wohnung beibehalten?</div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="no" name="no" value="${
-                    formData.previousApart
-                  }"
-                    ${formData.previousApart === 1 ? "checked" : ""}>
+                      formData.previousApart
+                    }" ${formData.previousApart===1 ? "checked" : "" }>
                   <label for="no">Nein</label>
                 </div>
                 <div class="bfsc__row__checkbox">
@@ -637,16 +642,12 @@ app.post("/generate-pdf", async (req, res) => {
                 </div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="main" name="main"
-                    value="${formData.previousApart}" ${
-    formData.previousApart === 2 ? "checked" : ""
-  }>
+                    value="${formData.previousApart}" ${ formData.previousApart===2 ? "checked" : "" }>
                   <label for="main">Haupt-wohnung</label>
                 </div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
-                    value="${formData.previousApart}" ${
-    formData.previousApart === 3 ? "checked" : ""
-  }>
+                    value="${formData.previousApart}" ${ formData.previousApart===3 ? "checked" : "" }>
                   <label for="secondary">Neben-wohnung</label>
                 </div>
               </div>
@@ -659,16 +660,14 @@ app.post("/generate-pdf", async (req, res) => {
                 </div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${
-                    formData.havApart
-                  }"
-                    ${formData.havApart === 1 ? "checked" : ""}>
+                      formData.havApart
+                    }" ${formData.havApart===1 ? "checked" : "" }>
                   <label for="yes">Ja, und zwar als</label>
                 </div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${
-                    formData.havApart
-                  }"
-                    ${formData.havApart === 2 ? "checked" : ""}>
+                      formData.havApart
+                    }" ${formData.havApart===2 ? "checked" : "" }>
                   <label for="main">Haupt-wohnung</label>
                 </div>
                 <div class="bfsc__row__note">
@@ -715,10 +714,10 @@ app.post("/generate-pdf", async (req, res) => {
                     Tag, Ort, Land der Geburt
                   </td>
                   <td style="border-bottom: 0;">${formData.birthDate} ${
-    formData.birthPlace ? "," : ""
-  } ${formData.birthPlace} ${formData.nationality ? "," : ""} ${
-    formData.nationality
-  }
+                    formData.birthPlace ? "," : ""
+                    } ${formData.birthPlace} ${formData.nationality ? "," : ""} ${
+                    formData.nationality
+                    }
                   </td>
                 </tr>
                 <tr>
@@ -732,8 +731,8 @@ app.post("/generate-pdf", async (req, res) => {
                     Staatsangehörigkeiten
                   </td>
                   <td style="border-bottom: 0;">${formData.nationality} ${
-    formData.secondNationality ? "," : ""
-  }
+                    formData.secondNationality ? "," : ""
+                    }
                     ${formData.secondNationality} </td>
                 </tr>
                 <tr>
@@ -758,9 +757,9 @@ app.post("/generate-pdf", async (req, res) => {
                     <div class="bsft__fht_famist">Familienmitglied ist:</div>
                     <div class="bsft__fht">${
                       formData.people.length > 0
-                        ? formData.people[0].LastName
-                        : ""
-                    }</div>
+                      ? formData.people[0].LastName
+                      : ""
+                      }</div>
                   </th>
                 </tr>
               </thead>
@@ -772,9 +771,9 @@ app.post("/generate-pdf", async (req, res) => {
                   </td>
                   <td style="border-bottom: 0;">${
                     formData.people.length > 0
-                      ? formData.people[0].FirstName
-                      : ""
-                  }</td>
+                    ? formData.people[0].FirstName
+                    : ""
+                    }</td>
                 </tr>
                 <tr>
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
@@ -782,9 +781,9 @@ app.post("/generate-pdf", async (req, res) => {
                   </td>
                   <td style="border-bottom: 0;">${
                     formData.people.length > 0
-                      ? formData.people[0].MaidenName
-                      : ""
-                  }</td>
+                    ? formData.people[0].MaidenName
+                    : ""
+                    }</td>
                 </tr>
                 <tr>
                   <td style="border-bottom: 0;  border-right: 0;" colspan="2">
@@ -792,7 +791,7 @@ app.post("/generate-pdf", async (req, res) => {
                   </td>
                   <td style="border-bottom: 0;">${
                     formData.people.length > 0 ? formData.people[0].Gender : ""
-                  }</td>
+                    }</td>
                 </tr>
                 <tr>
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
@@ -806,9 +805,9 @@ app.post("/generate-pdf", async (req, res) => {
                   </td>
                   <td style="border-bottom: 0;">${
                     formData.people.length > 0
-                      ? formData.people[0].Religion
-                      : ""
-                  }</td>
+                    ? formData.people[0].Religion
+                    : ""
+                    }</td>
                 </tr>
                 <tr>
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
@@ -840,12 +839,12 @@ app.post("/generate-pdf", async (req, res) => {
                 <tr>
                   <td style="border-right: 0;">${
                     formData.maritalStatusGr[
-                      formData.maritalStatus.indexOf(formData.marital)
+                    formData.maritalStatus.indexOf(formData.marital)
                     ]
-                  }</td>
+                    }</td>
                   <td>${formData.marriedFrom} ${
-    formData.marriagePlace ? "," : ""
-  } ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""} 
+                    formData.marriagePlace ? "," : ""
+                    } ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}
                     ${formData.marriageCountry}
                   </td>
                 </tr>
@@ -868,7 +867,7 @@ app.post("/generate-pdf", async (req, res) => {
                 <th style="border-bottom: 0;" colspan="5">
                   <div class="document__fullname">Name, Vorname: ${
                     formData.firstName
-                  }</div>
+                    }</div>
                 </th>
               </tr>
               <tr>
@@ -921,7 +920,14 @@ app.post("/generate-pdf", async (req, res) => {
             Betreuungsvollmacht</div>
           <div class="bss__body"></div>
         </div>
+  
       </div>
+    </div>
+    <div class="bottom-line">
+      <div>
+        Generated by <a href="https://anmeldung.netlify.app/">https://anmeldung.netlify.app/</a>
+      </div>
+      <div class="hsh">ANM-Blanko <b>- HSH</b> </div>
     </div>
   </body>
   
