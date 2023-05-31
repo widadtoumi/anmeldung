@@ -147,8 +147,10 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="dateFormatted"
+                          v-model="formData.birthDate"
                           outlined
+                          required
+                          placeholder="Date of birth"
                           :error-messages="errors"
                           v-bind="attrs"
                           @blur="date = parseDate(dateFormatted)"
@@ -321,11 +323,14 @@
                       offset-y
                       max-width="290px"
                       min-width="auto"
+                      required
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="validFromFormatted"
+                          v-model="formData.validFrom"
                           outlined
+                          placeholder="Valid from"
+                          required
                           :error-messages="errors"
                           v-bind="attrs"
                           @blur="validFromDate = parseDate(validFromFormatted)"
@@ -358,8 +363,10 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="validToFormatted"
+                          v-model="formData.validTo"
                           outlined
+                          placeholder="Valid until"
+                          required
                           :error-messages="errors"
                           v-bind="attrs"
                           @blur="validToDate = parseDate(validToFormatted)"
@@ -411,8 +418,10 @@
                       >
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
-                            v-model="marriedFromFormatted"
+                            v-model="formData.marriedFrom"
                             outlined
+                            placeholder="Date of Marriage"
+                            required
                             :error-messages="errors"
                             v-bind="attrs"
                             @blur="
@@ -617,10 +626,12 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="movingDateFormatted"
+                          v-model="formData.moved"
                           outlined
+                          placeholder="Date of moving in"
                           :error-messages="errors"
                           v-bind="attrs"
+                          required
                           @blur="moved = parseDate(movingDateFormatted)"
                           v-on="on"
                         ></v-text-field>
@@ -887,7 +898,6 @@ export default {
       stageName: "",
       religion: null,
       religions: [
-        "Please choose",
         "Roman Catholic",
         "Old Catholic",
         "Evangelical",
@@ -1627,8 +1637,8 @@ export default {
     parseDate(date) {
       if (!date) return null;
 
-      const [month, day, year] = date.split(".");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
     },
 
     async submitForm() {
