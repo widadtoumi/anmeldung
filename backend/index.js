@@ -638,11 +638,8 @@ app.post("/generate-pdf", async (req, res) => {
                     <tbody>
                       <tr>
                         <td style="border: 0px;">
-                          ${formData.prevPostCode}, ${formData.prevFloor}. OG ${
-                            formData.prevCity? "," : ""
-                          } ${
-                            formData.prevCity
-                          }
+                          ${formData.prevPostCode ? formData.prevPostCode : ""} ${formData.prevFloor ? ',' : ''} ${formData.prevFloor ? formData.prevFloor + '. OG' : ""}. OG 
+                          ${formData.prevCity? "," : ""} ${formData.prevCity}
                         </td>
                       </tr>
                     </tbody>
@@ -764,8 +761,8 @@ app.post("/generate-pdf", async (req, res) => {
                   <td style="border-bottom: 0;">${formData.birthDate} ${
     formData.birthPlace ? "," : ""
   } ${formData.birthPlace} ${
-    formData.nationalitiesGr.indexOf(formData.nationalities) ? "," : ""
-  } ${formData.nationalitiesGr.indexOf(formData.nationalities)}
+    formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)] ? "," : ""
+  } ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]}
                   </td>
                 </tr>
                 <tr>
@@ -778,9 +775,7 @@ app.post("/generate-pdf", async (req, res) => {
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
                     Staatsangehörigkeiten
                   </td>
-                  <td style="border-bottom: 0;">${formData.nationalitiesGr.indexOf(
-                    formData.nationalities
-                  )} ${formData.secondNationality ? "," : ""}
+                  <td style="border-bottom: 0;">${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} ${formData.secondNationality ? "," : ""}
                     ${formData.secondNationality} </td>
                 </tr>
                 <tr>
