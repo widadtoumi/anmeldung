@@ -638,7 +638,7 @@ app.post("/generate-pdf", async (req, res) => {
                     <tbody>
                       <tr>
                         <td style="border: 0px;">
-                          ${formData.prevPostCode ? formData.prevPostCode : ""} ${formData.prevFloor ? ',' : ''} ${formData.prevFloor ? formData.prevFloor + '. OG' : ""}. OG 
+                          ${formData.prevPostCode ? formData.prevPostCode : ""} ${formData.prevFloor ? ',' : ''} ${formData.prevFloor ? formData.prevFloor + '. OG' : ""} 
                           ${formData.prevCity? "," : ""} ${formData.prevCity}
                         </td>
                       </tr>
@@ -775,8 +775,10 @@ app.post("/generate-pdf", async (req, res) => {
                   <td style="border-bottom: 0; border-right: 0;" colspan="2">
                     Staatsangehörigkeiten
                   </td>
-                  <td style="border-bottom: 0;">${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} ${formData.secondNationality ? "," : ""}
-                    ${formData.secondNationality} </td>
+                  <td style="border-bottom: 0;">
+                  ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} 
+                  ${formData.secondNationality ? "," : ""}
+                  ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.secondNationality)]} </td>
                 </tr>
                 <tr>
                   <td style="border-right: 0;" colspan="2">
