@@ -2030,7 +2030,7 @@ export default {
       const [year, month, day] = date.split(".");
       return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
     },
-    
+
     async submitForm() {
       this.load = true;
       const response = await axios.post(
@@ -2056,6 +2056,11 @@ export default {
         this.load = false;
       }
     },
+  },
+  mounted() {
+    this.formData.nationalities = this.formData.nationalitiesOrdered.sort();
+    this.formData.countries.sort();
+    console.log(this.formData.countries);
   },
 };
 </script>
