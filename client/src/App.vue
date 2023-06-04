@@ -150,10 +150,11 @@
                           v-model="formData.birthDate"
                           outlined
                           required
-                          placeholder="Date of birth"
+                          readonly
+                          placeholder="DD.MM.YYYY"
                           :error-messages="errors"
                           v-bind="attrs"
-                          @blur="date = parseDate(dateFormatted)"
+                          @blur="date = parseDateBirth(dateFormatted)"
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -252,12 +253,13 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Document type:</div>
-                  <validation-provider v-slot="{ errors }" name="document type">
+                  <validation-provider rules="required" v-slot="{ errors }" name="document type">
                     <v-select
                       v-model="formData.document"
                       :items="formData.documents"
                       :error-messages="errors"
                       placeholder="- Please choose -"
+                      required
                       outlined
                       data-vv-name="document"
                     ></v-select>
@@ -329,11 +331,14 @@
                         <v-text-field
                           v-model="formData.validFrom"
                           outlined
-                          placeholder="Valid from"
+                          readonly
+                          placeholder="DD.MM.YYYY"
                           required
                           :error-messages="errors"
                           v-bind="attrs"
-                          @blur="validFromDate = parseDate(validFromFormatted)"
+                          @blur="
+                            validFromDate = parseDateVF(validFromFormatted)
+                          "
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -365,11 +370,12 @@
                         <v-text-field
                           v-model="formData.validTo"
                           outlined
-                          placeholder="Valid until"
+                          readonly
+                          placeholder="DD.MM.YYYY"
                           required
                           :error-messages="errors"
                           v-bind="attrs"
-                          @blur="validToDate = parseDate(validToFormatted)"
+                          @blur="validToDate = parseDateVT(validToFormatted)"
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -383,13 +389,18 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Marital status:</div>
-                  <validation-provider v-slot="{ errors }" name="marital">
+                  <validation-provider
+                    rules="required"
+                    v-slot="{ errors }"
+                    name="marital"
+                  >
                     <v-select
                       v-model="formData.marital"
                       :items="formData.maritalStatus"
                       :error-messages="errors"
                       placeholder="- Please choose -"
                       outlined
+                      required
                       data-vv-name="marital"
                     ></v-select>
                   </validation-provider>
@@ -420,12 +431,14 @@
                           <v-text-field
                             v-model="formData.marriedFrom"
                             outlined
-                            placeholder="Date of Marriage"
+                            readonly
+                            placeholder="DD.MM.YYYY"
                             required
                             :error-messages="errors"
                             v-bind="attrs"
                             @blur="
-                              marriedFromDate = parseDate(marriedFromFormatted)
+                              marriedFromDate =
+                                parseDateMF(marriedFromFormatted)
                             "
                             v-on="on"
                           ></v-text-field>
@@ -628,11 +641,12 @@
                         <v-text-field
                           v-model="formData.moved"
                           outlined
-                          placeholder="Date of moving in"
+                          readonly
+                          placeholder="DD.MM.YYYY"
                           :error-messages="errors"
                           v-bind="attrs"
                           required
-                          @blur="moved = parseDate(movingDateFormatted)"
+                          @blur="moved = parseDateM(movingDateFormatted)"
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -663,7 +677,26 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title-wrap">
-                    <div class="opf-section-title">Post code and city:</div>
+                    <div class="opf-section-title">
+                      c/o or any additional address information:
+                    </div>
+                  </div>
+                  <validation-provider
+                    v-slot="{ errors }"
+                    name="post code"
+                    rules="required"
+                  >
+                    <v-text-field
+                      v-model="formData.co"
+                      :error-messages="errors"
+                      outlined
+                      required
+                    ></v-text-field>
+                  </validation-provider>
+                </div>
+                <div class="opf-content">
+                  <div class="opf-section-title-wrap">
+                    <div class="opf-section-title">Postal code:</div>
                   </div>
                   <validation-provider
                     v-slot="{ errors }"
@@ -814,7 +847,7 @@
                   </div>
                   <div class="opf-content">
                     <div class="opf-section-title-wrap">
-                      <div class="opf-section-title">Post code and city:</div>
+                      <div class="opf-section-title">Post code:</div>
                     </div>
                     <validation-provider
                       v-slot="{ errors }"
@@ -823,6 +856,23 @@
                     >
                       <v-text-field
                         v-model="formData.prevPostCode"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">City:</div>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="post code"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="formData.prevCity"
                         :error-messages="errors"
                         outlined
                         required
@@ -873,11 +923,14 @@
                           <v-text-field
                             v-model="formData.movedOut"
                             outlined
-                            placeholder="Date of moving out"
+                            readonly
+                            placeholder="DD.MM.YYYY"
                             :error-messages="errors"
                             v-bind="attrs"
                             required
-                            @blur="movedOut = parseDate(movingOutDateFormatted)"
+                            @blur="
+                              movedOut = parseDateMO(movingOutDateFormatted)
+                            "
                             v-on="on"
                           ></v-text-field>
                         </template>
@@ -890,7 +943,45 @@
                     </validation-provider>
                   </div>
                 </div>
-
+                <div v-else>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">
+                        From which city and country did you move?
+                      </div>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="city"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="formData.abroadCity"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Country of birth:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="country of birth"
+                      rules="required"
+                    >
+                      <v-select
+                        v-model="formData.abroadCountry"
+                        :items="formData.countries"
+                        :error-messages="errors"
+                        label="- Please choose -"
+                        outlined
+                        data-vv-name="country of birth"
+                        required
+                      ></v-select>
+                    </validation-provider>
+                  </div>
+                </div>
                 <div class="opf-content">
                   <div class="opf-section-title">
                     Will you be keeping your previous apartment:
@@ -948,19 +1039,30 @@
                   responsibility for any errors or omissions
                 </div>
               </div>
-              <v-btn
-                rounded
-                block
-                large
-                color="#3894d3"
-                elevation="0"
-                :dark="!invalid"
-                class="my-8"
-                type="submit"
-                :disabled="invalid"
-              >
-                Finish and Download
-              </v-btn>
+              <div class="d-flex align-center">
+                <v-btn
+                  rounded
+                  block
+                  large
+                  color="#3894d3"
+                  elevation="0"
+                  :dark="!invalid"
+                  class="my-8"
+                  type="submit"
+                  :disabled="invalid"
+                >
+                  <v-progress-circular
+                    class="mx-auto"
+                    v-if="load"
+                    :indeterminate="load == true"
+                    color="white"
+                    style="min-width: 50px"
+                  ></v-progress-circular>
+                  <div class="finish-btn" v-if="load == false">
+                    Finish and Download
+                  </div>
+                </v-btn>
+              </div>
             </form>
           </validation-observer>
         </v-card>
@@ -1012,6 +1114,7 @@ export default {
   },
   name: "FormView",
   data: (vm) => ({
+    load: false,
     formData: {
       firstName: "",
       lastName: "",
@@ -1031,21 +1134,17 @@ export default {
       ],
       birthDate: "",
       birthPlace: "",
+      abroadCountry: "",
       birthCountry: null,
       countries: [
         "Afghanistan",
-        "\u00c5land Islands",
         "Albania",
         "Algeria",
-        "American Samoa",
         "Andorra",
         "Angola",
-        "Anguilla",
-        "Antarctica",
         "Antigua and Barbuda",
         "Argentina",
         "Armenia",
-        "Aruba",
         "Australia",
         "Austria",
         "Azerbaijan",
@@ -1057,16 +1156,12 @@ export default {
         "Belgium",
         "Belize",
         "Benin",
-        "Bermuda",
         "Bhutan",
-        "Bolivia (Plurinational State of)",
-        "Bonaire, Sint Eustatius and Saba",
+        "Bolivia",
         "Bosnia and Herzegovina",
         "Botswana",
-        "Bouvet Island",
         "Brazil",
-        "British Indian Ocean Territory",
-        "Brunei Darussalam",
+        "Brunei",
         "Bulgaria",
         "Burkina Faso",
         "Burundi",
@@ -1074,65 +1169,48 @@ export default {
         "Cambodia",
         "Cameroon",
         "Canada",
-        "Cayman Islands",
         "Central African Republic",
         "Chad",
         "Chile",
         "China",
-        "Christmas Island",
-        "Cocos (Keeling) Islands",
         "Colombia",
         "Comoros",
-        "Congo (Republic of the)",
-        "Congo (Democratic Republic of the)",
-        "Cook Islands",
+        "Congo, Democratic Republic of the",
+        "Congo, Republic of the",
         "Costa Rica",
-        "C\u00f4te d'Ivoire",
         "Croatia",
         "Cuba",
-        "Cura\u00e7ao",
         "Cyprus",
         "Czech Republic",
         "Denmark",
         "Djibouti",
         "Dominica",
         "Dominican Republic",
+        "East Timor",
         "Ecuador",
         "Egypt",
         "El Salvador",
         "Equatorial Guinea",
         "Eritrea",
         "Estonia",
+        "Eswatini",
         "Ethiopia",
-        "Falkland Islands (Malvinas)",
-        "Faroe Islands",
         "Fiji",
         "Finland",
         "France",
-        "French Guiana",
-        "French Polynesia",
-        "French Southern Territories",
         "Gabon",
         "Gambia",
         "Georgia",
         "Germany",
         "Ghana",
-        "Gibraltar",
         "Greece",
-        "Greenland",
         "Grenada",
-        "Guadeloupe",
-        "Guam",
         "Guatemala",
-        "Guernsey",
         "Guinea",
         "Guinea-Bissau",
         "Guyana",
         "Haiti",
-        "Heard Island and McDonald Islands",
-        "Vatican City State",
         "Honduras",
-        "Hong Kong",
         "Hungary",
         "Iceland",
         "India",
@@ -1140,21 +1218,20 @@ export default {
         "Iran",
         "Iraq",
         "Ireland",
-        "Isle of Man",
         "Israel",
         "Italy",
         "Jamaica",
         "Japan",
-        "Jersey",
         "Jordan",
         "Kazakhstan",
         "Kenya",
         "Kiribati",
-        "Korea (Democratic People's Republic of)",
-        "Korea (Republic of)",
+        "Korea, North",
+        "Korea, South",
+        "Kosovo",
         "Kuwait",
         "Kyrgyzstan",
-        "Lao People's Democratic Republic",
+        "Laos",
         "Latvia",
         "Lebanon",
         "Lesotho",
@@ -1163,8 +1240,6 @@ export default {
         "Liechtenstein",
         "Lithuania",
         "Luxembourg",
-        "Macao",
-        "Macedonia (the former Yugoslav Republic of)",
         "Madagascar",
         "Malawi",
         "Malaysia",
@@ -1172,17 +1247,14 @@ export default {
         "Mali",
         "Malta",
         "Marshall Islands",
-        "Martinique",
         "Mauritania",
         "Mauritius",
-        "Mayotte",
         "Mexico",
-        "Micronesia (Federated States of)",
-        "Moldova (Republic of)",
+        "Micronesia",
+        "Moldova",
         "Monaco",
         "Mongolia",
         "Montenegro",
-        "Montserrat",
         "Morocco",
         "Mozambique",
         "Myanmar",
@@ -1190,39 +1262,28 @@ export default {
         "Nauru",
         "Nepal",
         "Netherlands",
-        "New Caledonia",
         "New Zealand",
         "Nicaragua",
         "Niger",
         "Nigeria",
-        "Niue",
-        "Norfolk Island",
-        "Northern Mariana Islands",
+        "North Macedonia",
         "Norway",
         "Oman",
         "Pakistan",
         "Palau",
-        "Palestine, State of",
         "Panama",
         "Papua New Guinea",
         "Paraguay",
         "Peru",
         "Philippines",
-        "Pitcairn",
         "Poland",
         "Portugal",
-        "Puerto Rico",
         "Qatar",
-        "R\u00e9union",
         "Romania",
-        "Russian Federation",
+        "Russia",
         "Rwanda",
-        "Saint Barth\u00e9lemy",
-        "Saint Helena, Ascension and Tristan da Cunha",
         "Saint Kitts and Nevis",
         "Saint Lucia",
-        "Saint Martin (French part)",
-        "Saint Pierre and Miquelon",
         "Saint Vincent and the Grenadines",
         "Samoa",
         "San Marino",
@@ -1233,74 +1294,60 @@ export default {
         "Seychelles",
         "Sierra Leone",
         "Singapore",
-        "Sint Maarten (Dutch part)",
         "Slovakia",
         "Slovenia",
         "Solomon Islands",
         "Somalia",
         "South Africa",
-        "South Georgia and the South Sandwich Islands",
-        "South Sudan",
         "Spain",
         "Sri Lanka",
         "Sudan",
+        "Sudan, South",
         "Suriname",
-        "Svalbard and Jan Mayen",
-        "Swaziland",
         "Sweden",
         "Switzerland",
-        "Syrian Arab Republic",
-        "Taiwan, Province of China",
+        "Syria",
+        "Taiwan",
         "Tajikistan",
-        "Tanzania, United Republic of",
+        "Tanzania",
         "Thailand",
-        "Timor-Leste",
         "Togo",
-        "Tokelau",
         "Tonga",
         "Trinidad and Tobago",
         "Tunisia",
         "Turkey",
         "Turkmenistan",
-        "Turks and Caicos Islands",
         "Tuvalu",
         "Uganda",
         "Ukraine",
         "United Arab Emirates",
-        "United Kingdom of Great Britain and Northern Ireland",
-        "United States Minor Outlying Islands",
-        "United States of America",
+        "United Kingdom",
+        "United States",
         "Uruguay",
         "Uzbekistan",
         "Vanuatu",
-        "Venezuela (Bolivarian Republic of)",
+        "Vatican City",
+        "Venezuela",
         "Vietnam",
-        "Virgin Islands (British)",
-        "Virgin Islands (U.S.)",
-        "Wallis and Futuna",
-        "Western Sahara",
         "Yemen",
         "Zambia",
         "Zimbabwe",
       ],
       nationality: null,
-      nationalities: [
+      nationalities: [],
+      nationalitiesOrdered: [
         "Afghan",
-        "\u00c5land Island",
         "Albanian",
         "Algerian",
-        "American Samoan",
+        "American",
         "Andorran",
         "Angolan",
-        "Anguillan",
-        "Antarctic",
-        "Antiguan or Barbudan",
-        "Argentine",
+        "Antiguan",
+        "Argentinean",
         "Armenian",
-        "Aruban",
         "Australian",
         "Austrian",
-        "Azerbaijani, Azeri",
+        "Azerbaijani",
         "Bahamian",
         "Bahraini",
         "Bangladeshi",
@@ -1308,237 +1355,372 @@ export default {
         "Belarusian",
         "Belgian",
         "Belizean",
-        "Beninese, Beninois",
-        "Bermudian, Bermudan",
+        "Beninese",
         "Bhutanese",
         "Bolivian",
-        "Bonaire",
-        "Bosnian or Herzegovinian",
-        "Motswana, Botswanan",
-        "Bouvet Island",
+        "Bosnian",
         "Brazilian",
-        "BIOT",
+        "British",
         "Bruneian",
         "Bulgarian",
-        "Burkinab\u00e9",
+        "Burkinabe",
         "Burundian",
-        "Cabo Verdean",
         "Cambodian",
         "Cameroonian",
         "Canadian",
-        "Caymanian",
+        "Cape Verdean",
         "Central African",
         "Chadian",
         "Chilean",
         "Chinese",
-        "Christmas Island",
-        "Cocos Island",
         "Colombian",
-        "Comoran, Comorian",
+        "Comoran",
         "Congolese",
-        "Congolese",
-        "Cook Island",
         "Costa Rican",
-        "Ivorian",
         "Croatian",
         "Cuban",
-        "Cura\u00e7aoan",
         "Cypriot",
         "Czech",
         "Danish",
         "Djiboutian",
         "Dominican",
-        "Dominican",
-        "Ecuadorian",
+        "Dutch",
+        "East Timorese",
+        "Ecuadorean",
         "Egyptian",
-        "Salvadoran",
-        "Equatorial Guinean, Equatoguinean",
+        "Emirati",
+        "Equatorial Guinean",
         "Eritrean",
         "Estonian",
         "Ethiopian",
-        "Falkland Island",
-        "Faroese",
         "Fijian",
+        "Filipino",
         "Finnish",
         "French",
-        "French Guianese",
-        "French Polynesian",
-        "French Southern Territories",
         "Gabonese",
         "Gambian",
         "Georgian",
         "German",
         "Ghanaian",
-        "Gibraltar",
-        "Greek, Hellenic",
-        "Greenlandic",
+        "Greek",
         "Grenadian",
-        "Guadeloupe",
-        "Guamanian, Guambat",
         "Guatemalan",
-        "Channel Island",
         "Guinean",
-        "Bissau-Guinean",
         "Guyanese",
         "Haitian",
-        "Heard Island or McDonald Islands",
-        "Vatican",
         "Honduran",
-        "Hong Kong, Hong Kongese",
-        "Hungarian, Magyar",
-        "Icelandic",
+        "Hungarian",
+        "Icelander",
         "Indian",
         "Indonesian",
-        "Iranian, Persian",
+        "Iranian",
         "Iraqi",
         "Irish",
-        "Manx",
         "Israeli",
         "Italian",
+        "Ivorian",
         "Jamaican",
         "Japanese",
-        "Channel Island",
         "Jordanian",
-        "Kazakhstani, Kazakh",
+        "Kazakhstani",
         "Kenyan",
-        "I-Kiribati",
-        "North Korean",
-        "South Korean",
+        "Kittian and Nevisian",
         "Kuwaiti",
-        "Kyrgyzstani, Kyrgyz, Kirgiz, Kirghiz",
-        "Lao, Laotian",
+        "Kyrgyz",
+        "Laotian",
         "Latvian",
         "Lebanese",
-        "Basotho",
         "Liberian",
         "Libyan",
-        "Liechtenstein",
+        "Liechtensteiner",
         "Lithuanian",
-        "Luxembourg, Luxembourgish",
-        "Macanese, Chinese",
+        "Luxembourger",
         "Macedonian",
         "Malagasy",
         "Malawian",
         "Malaysian",
         "Maldivian",
-        "Malian, Malinese",
+        "Malian",
         "Maltese",
         "Marshallese",
-        "Martiniquais, Martinican",
         "Mauritanian",
         "Mauritian",
-        "Mahoran",
         "Mexican",
         "Micronesian",
         "Moldovan",
-        "Mon\u00e9gasque, Monacan",
+        "Monacan",
         "Mongolian",
         "Montenegrin",
-        "Montserratian",
         "Moroccan",
+        "Mosotho",
+        "Motswana",
         "Mozambican",
-        "Burmese",
         "Namibian",
         "Nauruan",
-        "Nepali, Nepalese",
-        "Dutch, Netherlandic",
-        "New Caledonian",
-        "New Zealand, NZ",
+        "Nepalese",
+        "New Zealander",
         "Nicaraguan",
-        "Nigerien",
         "Nigerian",
-        "Niuean",
-        "Norfolk Island",
-        "Northern Marianan",
+        "Nigerien",
+        "North Korean",
         "Norwegian",
         "Omani",
         "Pakistani",
         "Palauan",
-        "Palestinian",
         "Panamanian",
-        "Papua New Guinean, Papuan",
+        "Papua New Guinean",
         "Paraguayan",
         "Peruvian",
-        "Philippine, Filipino",
-        "Pitcairn Island",
         "Polish",
         "Portuguese",
-        "Puerto Rican",
         "Qatari",
-        "R\u00e9unionese, R\u00e9unionnais",
         "Romanian",
         "Russian",
         "Rwandan",
-        "Barth\u00e9lemois",
-        "Saint Helenian",
-        "Kittitian or Nevisian",
         "Saint Lucian",
-        "Saint-Martinoise",
-        "Saint-Pierrais or Miquelonnais",
-        "Saint Vincentian, Vincentian",
+        "Salvadoran",
         "Samoan",
-        "Sammarinese",
-        "S\u00e3o Tom\u00e9an",
-        "Saudi, Saudi Arabian",
+        "San Marinese",
+        "Sao Tomean",
+        "Saudi",
+        "Scottish",
         "Senegalese",
         "Serbian",
         "Seychellois",
         "Sierra Leonean",
         "Singaporean",
-        "Sint Maarten",
         "Slovak",
-        "Slovenian, Slovene",
-        "Solomon Island",
-        "Somali, Somalian",
+        "Slovenian",
+        "Solomon Islander",
+        "Somali",
         "South African",
-        "South Georgia or South Sandwich Islands",
-        "South Sudanese",
+        "South Korean",
         "Spanish",
         "Sri Lankan",
         "Sudanese",
-        "Surinamese",
-        "Svalbard",
+        "Surinamer",
         "Swazi",
         "Swedish",
         "Swiss",
         "Syrian",
-        "Chinese, Taiwanese",
-        "Tajikistani",
+        "Taiwanese",
+        "Tajik",
         "Tanzanian",
         "Thai",
-        "Timorese",
         "Togolese",
-        "Tokelauan",
         "Tongan",
         "Trinidadian or Tobagonian",
         "Tunisian",
         "Turkish",
         "Turkmen",
-        "Turks and Caicos Island",
         "Tuvaluan",
         "Ugandan",
         "Ukrainian",
-        "Emirati, Emirian, Emiri",
-        "British, UK",
-        "American",
-        "American",
         "Uruguayan",
-        "Uzbekistani, Uzbek",
-        "Ni-Vanuatu, Vanuatuan",
+        "Uzbekistani",
         "Venezuelan",
         "Vietnamese",
-        "British Virgin Island",
-        "U.S. Virgin Island",
-        "Wallis and Futuna, Wallisian or Futunan",
-        "Sahrawi, Sahrawian, Sahraouian",
-        "Yemeni",
+        "Welsh",
+        "Yemenite",
         "Zambian",
         "Zimbabwean",
       ],
+      nationalitiesGr: [
+        "Afghane",
+        "Albaner",
+        "Algerier",
+        "Amerikaner",
+        "Andorraner",
+        "Angolaner",
+        "Antiguaner",
+        "Argentinier",
+        "Armenier",
+        "Australier",
+        "Österreicher",
+        "Aserbaidschaner",
+        "Bahamaer",
+        "Bahrainer",
+        "Bangladescher",
+        "Barbadianer",
+        "Weißrusse",
+        "Belgier",
+        "Belizeaner",
+        "Beniner",
+        "Bhutaner",
+        "Bolivianer",
+        "Bosnier",
+        "Brasilianer",
+        "Brite",
+        "Bruneier",
+        "Bulgare",
+        "Burkinabe",
+        "Burundier",
+        "Kambodschaner",
+        "Kameruner",
+        "Kanadier",
+        "Kap-Verdianer",
+        "Zentralafrikaner",
+        "Tschader",
+        "Chilene",
+        "Chinese",
+        "Kolumbianer",
+        "Komorer",
+        "Kongolese",
+        "Costa Ricaner",
+        "Kroate",
+        "Kubaner",
+        "Zyprer",
+        "Tscheche",
+        "Däne",
+        "Dschibutier",
+        "Dominikaner",
+        "Niederländer",
+        "Osttimorese",
+        "Ecuadorianer",
+        "Ägypter",
+        "Emirati",
+        "Äquatorialguineer",
+        "Eritreer",
+        "Este",
+        "Äthiopier",
+        "Fidschianer",
+        "Filipino",
+        "Finne",
+        "Franzose",
+        "Gabuner",
+        "Gambier",
+        "Georgier",
+        "Deutscher",
+        "Ghanaer",
+        "Grieche",
+        "Grenadier",
+        "Guatemalteke",
+        "Guineer",
+        "Guyaner",
+        "Haitianer",
+        "Honduraner",
+        "Ungar",
+        "Isländer",
+        "Inder",
+        "Indonesier",
+        "Iraner",
+        "Iraker",
+        "Ire",
+        "Israeli",
+        "Italiener",
+        "Ivorer",
+        "Jamaikaner",
+        "Japaner",
+        "Jordanier",
+        "Kasache",
+        "Kenianer",
+        "Kittianer und Nevisianer",
+        "Kuwaiti",
+        "Kirgise",
+        "Laote",
+        "Lette",
+        "Libanese",
+        "Liberianer",
+        "Libyer",
+        "Liechtensteiner",
+        "Litauer",
+        "Luxemburger",
+        "Mazedonier",
+        "Madagasse",
+        "Malawier",
+        "Malayer",
+        "Maldivier",
+        "Malier",
+        "Maltese",
+        "Marshallesischer",
+        "Mauretanier",
+        "Mauritianer",
+        "Mexikaner",
+        "Mikronesier",
+        "Moldawier",
+        "Monegasse",
+        "Mongole",
+        "Montenegriner",
+        "Marokkaner",
+        "Mosotho",
+        "Motswana",
+        "Mosambikaner",
+        "Namibier",
+        "Nauruer",
+        "Nepalese",
+        "Neuseeländer",
+        "Nicaraguaner",
+        "Nigerianer",
+        "Nigerier",
+        "Nordkoreaner",
+        "Norweger",
+        "Omaner",
+        "Pakistani",
+        "Palauer",
+        "Panamani",
+        "Papua-Neuguineer",
+        "Paraguayer",
+        "Peruaner",
+        "Pole",
+        "Portugiese",
+        "Katarer",
+        "Rumäne",
+        "Russe",
+        "Ruander",
+        "Saint Lucianer",
+        "Salvadorianer",
+        "Samoaner",
+        "San Marinese",
+        "Sao Tomeaner",
+        "Saudi",
+        "Schotte",
+        "Senegalese",
+        "Serbe",
+        "Seycheller",
+        "Sierra Leoner",
+        "Singapurer",
+        "Slowake",
+        "Slowene",
+        "Salomonen-Insulaner",
+        "Somalier",
+        "Südafrikaner",
+        "Südkoreaner",
+        "Spanier",
+        "Sri Lanker",
+        "Sudanese",
+        "Surinamer",
+        "Swasi",
+        "Schwede",
+        "Schweizer",
+        "Syrer",
+        "Taiwanese",
+        "Tadschike",
+        "Tansanier",
+        "Thailänder",
+        "Togoer",
+        "Tonganer",
+        "Trinidadianer oder Tobagoner",
+        "Tunesier",
+        "Türke",
+        "Turkmenen",
+        "Tuvaluer",
+        "Ugander",
+        "Ukrainer",
+        "Uruguayer",
+        "Usbeke",
+        "Venezolaner",
+        "Vietnamese",
+        "Waliser",
+        "Jemenit",
+        "Sambier",
+        "Simbabwer",
+      ],
+      abroadCity: "",
       document: null,
       documents: ["Passport", "ID document", "Child’s passport"],
       validFrom: "",
       validTo: "",
+      co: "",
       secondNationality: null,
       authorityName: "",
       placeName: "",
@@ -1585,6 +1767,7 @@ export default {
       prevAddress: "",
       postCode: "",
       prevPostCode: "",
+      prevCity: "",
       moved: "",
       movedOut: "",
       city: "",
@@ -1653,7 +1836,7 @@ export default {
           name: "A second apartment, but will be a secondary one",
         },
       ],
-      havApart: 1,
+      havApart: 2,
       havApartOptions: [
         {
           id: 1,
@@ -1793,14 +1976,63 @@ export default {
       const [year, month, day] = date.split("-");
       return `${day}.${month}.${year}`;
     },
-    parseDate(date) {
-      if (!date) return null;
-
+    parseDateBirth(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.birthDate = date;
+      }
       const [year, month, day] = date.split(".");
       return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
     },
-
+    parseDateVF(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.validFrom = date;
+      }
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+    },
+    parseDateVT(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.validTo = date;
+      }
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+    },
+    parseDateMF(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.marriedFrom = date;
+      }
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+    },
+    parseDateM(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.moved = date;
+      }
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+    },
+    parseDateMO(date) {
+      if (!date) {
+        return null;
+      } else {
+        this.formData.movedOut = date;
+      }
+      const [year, month, day] = date.split(".");
+      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+    },
+    
     async submitForm() {
+      this.load = true;
       const response = await axios.post(
         "https://anmeldung-9wys.onrender.com/generate-pdf",
         {
@@ -1820,6 +2052,9 @@ export default {
       link.href = fileURL;
       link.download = "Anmeldung.pdf";
       link.click();
+      if (response.data) {
+        this.load = false;
+      }
     },
   },
 };
