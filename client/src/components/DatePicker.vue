@@ -63,7 +63,7 @@ export default {
   watch: {
     date() {
       this.formattedDate = this.formatDate(this.date);
-      this.$emit("date-updated", this.date);
+      this.$emit("date-updated", this.formattedDate);
     },
     formattedDate() {
       this.$emit("validate-date");
