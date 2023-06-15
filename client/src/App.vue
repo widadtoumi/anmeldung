@@ -131,40 +131,13 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Date of birth:</div>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Birth Date"
-                    rules="required"
-                  >
-                    <v-menu
-                      ref="birthDate"
-                      v-model="birthDate"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="formData.birthDate"
-                          outlined
-                          required
-                          readonly
-                          placeholder="DD.MM.YYYY"
-                          :error-messages="errors"
-                          v-bind="attrs"
-                          @blur="date = parseDateBirth(dateFormatted)"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="date"
-                        no-title
-                        @input="birthDate = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </validation-provider>
+                  <DatePicker
+                    :sentDate="formData.date"
+                    @date-updated="formData.date = $event"
+                    :invalid="invalid"
+                    :name="`Birth date`"
+                    :reference="`date`"
+                  />
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title-wrap">
@@ -179,7 +152,7 @@
                           class="tp"
                           :class="hover ? 'show-tooltip' : 'hide-tooltip'"
                         >
-                          This must match the gender in your passport
+                          This must match the place of birth in your passport
                         </div>
                       </div>
                     </v-hover>
@@ -201,7 +174,7 @@
                   <div class="opf-section-title">Country of birth:</div>
                   <validation-provider
                     v-slot="{ errors }"
-                    name="country of birth"
+                    name="Country of birth"
                     rules="required"
                   >
                     <v-select
@@ -253,7 +226,11 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Document type:</div>
-                  <validation-provider rules="required" v-slot="{ errors }" name="document type">
+                  <validation-provider
+                    rules="required"
+                    v-slot="{ errors }"
+                    name="document type"
+                  >
                     <v-select
                       v-model="formData.document"
                       :items="formData.documents"
@@ -312,80 +289,23 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Valid from:</div>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Valid from"
-                    rules="required"
-                  >
-                    <v-menu
-                      ref="validFrom"
-                      v-model="validFromDate"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                      required
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="formData.validFrom"
-                          outlined
-                          readonly
-                          placeholder="DD.MM.YYYY"
-                          required
-                          :error-messages="errors"
-                          v-bind="attrs"
-                          @blur="
-                            validFromDate = parseDateVF(validFromFormatted)
-                          "
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="validFrom"
-                        no-title
-                        @input="validFromDate = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </validation-provider>
+                  <DatePicker
+                    :sentDate="formData.validFrom"
+                    @date-updated="formData.validFrom = $event"
+                    :invalid="invalid"
+                    :name="`Valid from`"
+                    :reference="`validFrom`"
+                  />
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">To:</div>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="Valid to"
-                    rules="required"
-                  >
-                    <v-menu
-                      ref="validTo"
-                      v-model="validToDate"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="formData.validTo"
-                          outlined
-                          readonly
-                          placeholder="DD.MM.YYYY"
-                          required
-                          :error-messages="errors"
-                          v-bind="attrs"
-                          @blur="validToDate = parseDateVT(validToFormatted)"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="validTo"
-                        no-title
-                        @input="validToDate = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </validation-provider>
+                  <DatePicker
+                    :sentDate="formData.validTo"
+                    @date-updated="formData.validTo = $event"
+                    :invalid="invalid"
+                    :name="`Valid to`"
+                    :reference="`validTo`"
+                  />
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Marital status:</div>
@@ -413,43 +333,13 @@
                     <div class="opf-section-title">
                       Date of marriage/partnership:
                     </div>
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="married from"
-                      rules="required"
-                    >
-                      <v-menu
-                        ref="marriedFrom"
-                        v-model="marriedFromDate"
-                        :close-on-content-click="false"
-                        transition="scale-transition"
-                        offset-y
-                        max-width="290px"
-                        min-width="auto"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                            v-model="formData.marriedFrom"
-                            outlined
-                            readonly
-                            placeholder="DD.MM.YYYY"
-                            required
-                            :error-messages="errors"
-                            v-bind="attrs"
-                            @blur="
-                              marriedFromDate =
-                                parseDateMF(marriedFromFormatted)
-                            "
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          v-model="marriedFrom"
-                          no-title
-                          @input="marriedFromDate = false"
-                        ></v-date-picker>
-                      </v-menu>
-                    </validation-provider>
+                    <DatePicker
+                      :sentDate="formData.marriedFrom"
+                      @date-updated="formData.marriedFrom = $event"
+                      :invalid="invalid"
+                      :name="`Married from`"
+                      :reference="`marriedFrom`"
+                    />
                   </div>
                   <div class="opf-content">
                     <div class="opf-section-title-wrap">
@@ -585,6 +475,212 @@
                       ></v-select>
                     </validation-provider>
                   </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">
+                        Stage name: <span> (optional) </span>
+                      </div>
+                      <v-hover v-slot="{ hover }" open-delay="200">
+                        <div class="tooltip">
+                          <v-icon color="#3894D3"> mdi-information </v-icon>
+                          <div
+                            class="tp"
+                            :class="hover ? 'show-tooltip' : 'hide-tooltip'"
+                          >
+                            If this person used a previous surname, write it
+                            here
+                          </div>
+                        </div>
+                      </v-hover>
+                    </div>
+                    <validation-provider v-slot="{ errors }" name="stage name">
+                      <v-text-field
+                        v-model="person.stageName"
+                        :error-messages="errors"
+                        outlined
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Date of birth:</div>
+                    <DatePicker
+                      :sentDate="person.birthDate"
+                      @date-updated="person.birthDate = $event"
+                      :invalid="invalid"
+                      :name="`Birth Date`"
+                      :reference="`birthDate`"
+                    />
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title-wrap">
+                      <div class="opf-section-title">
+                        Place of birth:
+                        <span>
+                          (town or city and state, where appropriate)
+                        </span>
+                      </div>
+                      <v-hover v-slot="{ hover }" open-delay="200">
+                        <div class="tooltip">
+                          <v-icon color="#3894D3"> mdi-information </v-icon>
+                          <div
+                            class="tp"
+                            :class="hover ? 'show-tooltip' : 'hide-tooltip'"
+                          >
+                            This must match the place of birth in their passport
+                          </div>
+                        </div>
+                      </v-hover>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Place of birth"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="person.birthPlace"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Country of birth:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="country of birth"
+                      rules="required"
+                    >
+                      <v-select
+                        v-model="person.birthCountry"
+                        :items="formData.countries"
+                        :error-messages="errors"
+                        label="- Please choose -"
+                        outlined
+                        data-vv-name="country of birth"
+                        required
+                      ></v-select>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Nationality:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="nationality"
+                      rules="required"
+                    >
+                      <v-select
+                        v-model="person.nationality"
+                        :items="formData.nationalities"
+                        :error-messages="errors"
+                        label="- Please choose -"
+                        outlined
+                        data-vv-name="nationality"
+                        required
+                      ></v-select>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">
+                      Second nationality: <span> (if any) </span>
+                    </div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="secondNationality"
+                    >
+                      <v-select
+                        v-model="person.secondNationality"
+                        :items="formData.nationalities"
+                        :error-messages="errors"
+                        label="- Please choose -"
+                        outlined
+                        data-vv-name="secondNationality"
+                      ></v-select>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Document type:</div>
+                    <validation-provider
+                      rules="required"
+                      v-slot="{ errors }"
+                      name="document type"
+                    >
+                      <v-select
+                        v-model="person.document"
+                        :items="formData.documents"
+                        :error-messages="errors"
+                        placeholder="- Please choose -"
+                        required
+                        outlined
+                        data-vv-name="document"
+                      ></v-select>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Issuing authority:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Authority name"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="person.authorityName"
+                        :error-messages="errors"
+                        label="Authority name"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Place name"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="person.placeName"
+                        :error-messages="errors"
+                        label="Place name"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Document serial number:</div>
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="serial number"
+                      rules="required"
+                    >
+                      <v-text-field
+                        v-model="person.serialNum"
+                        :error-messages="errors"
+                        outlined
+                        required
+                      ></v-text-field>
+                    </validation-provider>
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">Valid from:</div>
+                    <DatePicker
+                      :sentDate="person.validFrom"
+                      @date-updated="person.validFrom = $event"
+                      :invalid="invalid"
+                      :name="`Valid from`"
+                      :reference="`validFrom`"
+                    />
+                  </div>
+                  <div class="opf-content">
+                    <div class="opf-section-title">To:</div>
+                    <DatePicker
+                      :sentDate="person.validTo"
+                      @date-updated="person.validTo = $event"
+                      :invalid="invalid"
+                      :name="`Valid to`"
+                      :reference="`validTo`"
+                    />
+                  </div>
                 </div>
               </div>
               <v-btn
@@ -623,40 +719,13 @@
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title">Date of moving in:</div>
-                  <validation-provider
-                    v-slot="{ errors }"
-                    name="moving date"
-                    rules="required"
-                  >
-                    <v-menu
-                      ref="movingDate"
-                      v-model="movingDate"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="formData.moved"
-                          outlined
-                          readonly
-                          placeholder="DD.MM.YYYY"
-                          :error-messages="errors"
-                          v-bind="attrs"
-                          required
-                          @blur="moved = parseDateM(movingDateFormatted)"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="moved"
-                        no-title
-                        @input="movingDate = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </validation-provider>
+                  <DatePicker
+                    :sentDate="formData.moved"
+                    @date-updated="formData.moved = $event"
+                    :invalid="invalid"
+                    :name="`Moving date`"
+                    :reference="`movingDate`"
+                  />
                 </div>
                 <div class="opf-content">
                   <div class="opf-section-title-wrap">
@@ -683,14 +752,12 @@
                   </div>
                   <validation-provider
                     v-slot="{ errors }"
-                    name="post code"
-                    rules="required"
+                    name="c/o or any additional address information"
                   >
                     <v-text-field
                       v-model="formData.co"
                       :error-messages="errors"
                       outlined
-                      required
                     ></v-text-field>
                   </validation-provider>
                 </div>
@@ -814,6 +881,7 @@
                       <v-radio-group
                         :error-messages="errors"
                         v-model="formData.keepingPrvAprt"
+                        ref="keepingPrvAprt"
                       >
                         <v-radio
                           v-for="(
@@ -841,6 +909,7 @@
                         v-model="formData.prevAddress"
                         :error-messages="errors"
                         outlined
+                        ref="prevAddress"
                         required
                       ></v-text-field>
                     </validation-provider>
@@ -859,6 +928,7 @@
                         :error-messages="errors"
                         outlined
                         required
+                        ref="prevPostCode"
                       ></v-text-field>
                     </validation-provider>
                   </div>
@@ -876,6 +946,7 @@
                         :error-messages="errors"
                         outlined
                         required
+                        ref="prevCity"
                       ></v-text-field>
                     </validation-provider>
                   </div>
@@ -884,11 +955,7 @@
                     <div class="opf-section-desc">
                       Remember in Europe that ground floor is 0.
                     </div>
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="floor"
-                      rules="required"
-                    >
+                    <validation-provider v-slot="{ errors }" name="floor">
                       <v-text-field
                         v-model="formData.prevFloor"
                         :error-messages="errors"
@@ -896,51 +963,21 @@
                         type="number"
                         data-vv-name="floor"
                         step="any"
-                        required
                         min="0"
-                        ref="input"
+                        ref="prevFloor"
                         :rules="[formData.floorRule]"
                       ></v-text-field>
                     </validation-provider>
                   </div>
                   <div class="opf-content">
                     <div class="opf-section-title">When did you move out:</div>
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="moving out date"
-                      rules="required"
-                    >
-                      <v-menu
-                        ref="movingOutDate"
-                        v-model="movingOutDate"
-                        :close-on-content-click="false"
-                        transition="scale-transition"
-                        offset-y
-                        max-width="290px"
-                        min-width="auto"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                            v-model="formData.movedOut"
-                            outlined
-                            readonly
-                            placeholder="DD.MM.YYYY"
-                            :error-messages="errors"
-                            v-bind="attrs"
-                            required
-                            @blur="
-                              movedOut = parseDateMO(movingOutDateFormatted)
-                            "
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          v-model="movedOut"
-                          no-title
-                          @input="movingOutDate = false"
-                        ></v-date-picker>
-                      </v-menu>
-                    </validation-provider>
+                    <DatePicker
+                      :sentDate="formData.movedOut"
+                      @date-updated="formData.movedOut = $event"
+                      :invalid="invalid"
+                      :name="`Moving out date`"
+                      :reference="`movingOutDate`"
+                    />
                   </div>
                 </div>
                 <div v-else>
@@ -959,15 +996,16 @@
                         v-model="formData.abroadCity"
                         :error-messages="errors"
                         outlined
+                        ref="abroadCity"
                         required
                       ></v-text-field>
                     </validation-provider>
                   </div>
                   <div class="opf-content">
-                    <div class="opf-section-title">Country of birth:</div>
+                    <div class="opf-section-title">Country:</div>
                     <validation-provider
                       v-slot="{ errors }"
-                      name="country of birth"
+                      name="country"
                       rules="required"
                     >
                       <v-select
@@ -975,8 +1013,9 @@
                         :items="formData.countries"
                         :error-messages="errors"
                         label="- Please choose -"
+                        ref="abroadCountry"
                         outlined
-                        data-vv-name="country of birth"
+                        data-vv-name="country"
                         required
                       ></v-select>
                     </validation-provider>
@@ -1080,7 +1119,7 @@ import {
   ValidationProvider,
   setInteractionMode,
 } from "vee-validate";
-
+import DatePicker from "@/components/DatePicker.vue";
 setInteractionMode("eager");
 
 extend("digits", {
@@ -1111,853 +1150,584 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    DatePicker,
   },
   name: "FormView",
-  data: (vm) => ({
-    load: false,
-    formData: {
-      firstName: "",
-      lastName: "",
-      maidenName: "",
-      gender: null,
-      genders: ["Male", "Female", "Other"],
-      stageName: "",
-      religion: null,
-      religions: [
-        "Roman Catholic",
-        "Old Catholic",
-        "Evangelical",
-        "Evangelical-Lutheran",
-        "Protestant Reformed",
-        "Israelite religious communities (in Bavaria)",
-        "None/other",
-      ],
-      birthDate: "",
-      birthPlace: "",
-      abroadCountry: "",
-      birthCountry: null,
-      countries: [
-        "Afghanistan",
-        "Albania",
-        "Algeria",
-        "Andorra",
-        "Angola",
-        "Antigua and Barbuda",
-        "Argentina",
-        "Armenia",
-        "Australia",
-        "Austria",
-        "Azerbaijan",
-        "Bahamas",
-        "Bahrain",
-        "Bangladesh",
-        "Barbados",
-        "Belarus",
-        "Belgium",
-        "Belize",
-        "Benin",
-        "Bhutan",
-        "Bolivia",
-        "Bosnia and Herzegovina",
-        "Botswana",
-        "Brazil",
-        "Brunei",
-        "Bulgaria",
-        "Burkina Faso",
-        "Burundi",
-        "Cabo Verde",
-        "Cambodia",
-        "Cameroon",
-        "Canada",
-        "Central African Republic",
-        "Chad",
-        "Chile",
-        "China",
-        "Colombia",
-        "Comoros",
-        "Congo, Democratic Republic of the",
-        "Congo, Republic of the",
-        "Costa Rica",
-        "Croatia",
-        "Cuba",
-        "Cyprus",
-        "Czech Republic",
-        "Denmark",
-        "Djibouti",
-        "Dominica",
-        "Dominican Republic",
-        "East Timor",
-        "Ecuador",
-        "Egypt",
-        "El Salvador",
-        "Equatorial Guinea",
-        "Eritrea",
-        "Estonia",
-        "Eswatini",
-        "Ethiopia",
-        "Fiji",
-        "Finland",
-        "France",
-        "Gabon",
-        "Gambia",
-        "Georgia",
-        "Germany",
-        "Ghana",
-        "Greece",
-        "Grenada",
-        "Guatemala",
-        "Guinea",
-        "Guinea-Bissau",
-        "Guyana",
-        "Haiti",
-        "Honduras",
-        "Hungary",
-        "Iceland",
-        "India",
-        "Indonesia",
-        "Iran",
-        "Iraq",
-        "Ireland",
-        "Israel",
-        "Italy",
-        "Jamaica",
-        "Japan",
-        "Jordan",
-        "Kazakhstan",
-        "Kenya",
-        "Kiribati",
-        "Korea, North",
-        "Korea, South",
-        "Kosovo",
-        "Kuwait",
-        "Kyrgyzstan",
-        "Laos",
-        "Latvia",
-        "Lebanon",
-        "Lesotho",
-        "Liberia",
-        "Libya",
-        "Liechtenstein",
-        "Lithuania",
-        "Luxembourg",
-        "Madagascar",
-        "Malawi",
-        "Malaysia",
-        "Maldives",
-        "Mali",
-        "Malta",
-        "Marshall Islands",
-        "Mauritania",
-        "Mauritius",
-        "Mexico",
-        "Micronesia",
-        "Moldova",
-        "Monaco",
-        "Mongolia",
-        "Montenegro",
-        "Morocco",
-        "Mozambique",
-        "Myanmar",
-        "Namibia",
-        "Nauru",
-        "Nepal",
-        "Netherlands",
-        "New Zealand",
-        "Nicaragua",
-        "Niger",
-        "Nigeria",
-        "North Macedonia",
-        "Norway",
-        "Oman",
-        "Pakistan",
-        "Palau",
-        "Panama",
-        "Papua New Guinea",
-        "Paraguay",
-        "Peru",
-        "Philippines",
-        "Poland",
-        "Portugal",
-        "Qatar",
-        "Romania",
-        "Russia",
-        "Rwanda",
-        "Saint Kitts and Nevis",
-        "Saint Lucia",
-        "Saint Vincent and the Grenadines",
-        "Samoa",
-        "San Marino",
-        "Sao Tome and Principe",
-        "Saudi Arabia",
-        "Senegal",
-        "Serbia",
-        "Seychelles",
-        "Sierra Leone",
-        "Singapore",
-        "Slovakia",
-        "Slovenia",
-        "Solomon Islands",
-        "Somalia",
-        "South Africa",
-        "Spain",
-        "Sri Lanka",
-        "Sudan",
-        "Sudan, South",
-        "Suriname",
-        "Sweden",
-        "Switzerland",
-        "Syria",
-        "Taiwan",
-        "Tajikistan",
-        "Tanzania",
-        "Thailand",
-        "Togo",
-        "Tonga",
-        "Trinidad and Tobago",
-        "Tunisia",
-        "Turkey",
-        "Turkmenistan",
-        "Tuvalu",
-        "Uganda",
-        "Ukraine",
-        "United Arab Emirates",
-        "United Kingdom",
-        "United States",
-        "Uruguay",
-        "Uzbekistan",
-        "Vanuatu",
-        "Vatican City",
-        "Venezuela",
-        "Vietnam",
-        "Yemen",
-        "Zambia",
-        "Zimbabwe",
-      ],
-      nationality: null,
-      nationalities: [],
-      nationalitiesOrdered: [
-        "Afghan",
-        "Albanian",
-        "Algerian",
-        "American",
-        "Andorran",
-        "Angolan",
-        "Antiguan",
-        "Argentinean",
-        "Armenian",
-        "Australian",
-        "Austrian",
-        "Azerbaijani",
-        "Bahamian",
-        "Bahraini",
-        "Bangladeshi",
-        "Barbadian",
-        "Belarusian",
-        "Belgian",
-        "Belizean",
-        "Beninese",
-        "Bhutanese",
-        "Bolivian",
-        "Bosnian",
-        "Brazilian",
-        "British",
-        "Bruneian",
-        "Bulgarian",
-        "Burkinabe",
-        "Burundian",
-        "Cambodian",
-        "Cameroonian",
-        "Canadian",
-        "Cape Verdean",
-        "Central African",
-        "Chadian",
-        "Chilean",
-        "Chinese",
-        "Colombian",
-        "Comoran",
-        "Congolese",
-        "Costa Rican",
-        "Croatian",
-        "Cuban",
-        "Cypriot",
-        "Czech",
-        "Danish",
-        "Djiboutian",
-        "Dominican",
-        "Dutch",
-        "East Timorese",
-        "Ecuadorean",
-        "Egyptian",
-        "Emirati",
-        "Equatorial Guinean",
-        "Eritrean",
-        "Estonian",
-        "Ethiopian",
-        "Fijian",
-        "Filipino",
-        "Finnish",
-        "French",
-        "Gabonese",
-        "Gambian",
-        "Georgian",
-        "German",
-        "Ghanaian",
-        "Greek",
-        "Grenadian",
-        "Guatemalan",
-        "Guinean",
-        "Guyanese",
-        "Haitian",
-        "Honduran",
-        "Hungarian",
-        "Icelander",
-        "Indian",
-        "Indonesian",
-        "Iranian",
-        "Iraqi",
-        "Irish",
-        "Israeli",
-        "Italian",
-        "Ivorian",
-        "Jamaican",
-        "Japanese",
-        "Jordanian",
-        "Kazakhstani",
-        "Kenyan",
-        "Kittian and Nevisian",
-        "Kuwaiti",
-        "Kyrgyz",
-        "Laotian",
-        "Latvian",
-        "Lebanese",
-        "Liberian",
-        "Libyan",
-        "Liechtensteiner",
-        "Lithuanian",
-        "Luxembourger",
-        "Macedonian",
-        "Malagasy",
-        "Malawian",
-        "Malaysian",
-        "Maldivian",
-        "Malian",
-        "Maltese",
-        "Marshallese",
-        "Mauritanian",
-        "Mauritian",
-        "Mexican",
-        "Micronesian",
-        "Moldovan",
-        "Monacan",
-        "Mongolian",
-        "Montenegrin",
-        "Moroccan",
-        "Mosotho",
-        "Motswana",
-        "Mozambican",
-        "Namibian",
-        "Nauruan",
-        "Nepalese",
-        "New Zealander",
-        "Nicaraguan",
-        "Nigerian",
-        "Nigerien",
-        "North Korean",
-        "Norwegian",
-        "Omani",
-        "Pakistani",
-        "Palauan",
-        "Panamanian",
-        "Papua New Guinean",
-        "Paraguayan",
-        "Peruvian",
-        "Polish",
-        "Portuguese",
-        "Qatari",
-        "Romanian",
-        "Russian",
-        "Rwandan",
-        "Saint Lucian",
-        "Salvadoran",
-        "Samoan",
-        "San Marinese",
-        "Sao Tomean",
-        "Saudi",
-        "Scottish",
-        "Senegalese",
-        "Serbian",
-        "Seychellois",
-        "Sierra Leonean",
-        "Singaporean",
-        "Slovak",
-        "Slovenian",
-        "Solomon Islander",
-        "Somali",
-        "South African",
-        "South Korean",
-        "Spanish",
-        "Sri Lankan",
-        "Sudanese",
-        "Surinamer",
-        "Swazi",
-        "Swedish",
-        "Swiss",
-        "Syrian",
-        "Taiwanese",
-        "Tajik",
-        "Tanzanian",
-        "Thai",
-        "Togolese",
-        "Tongan",
-        "Trinidadian or Tobagonian",
-        "Tunisian",
-        "Turkish",
-        "Turkmen",
-        "Tuvaluan",
-        "Ugandan",
-        "Ukrainian",
-        "Uruguayan",
-        "Uzbekistani",
-        "Venezuelan",
-        "Vietnamese",
-        "Welsh",
-        "Yemenite",
-        "Zambian",
-        "Zimbabwean",
-      ],
-      nationalitiesGr: [
-        "Afghane",
-        "Albaner",
-        "Algerier",
-        "Amerikaner",
-        "Andorraner",
-        "Angolaner",
-        "Antiguaner",
-        "Argentinier",
-        "Armenier",
-        "Australier",
-        "Österreicher",
-        "Aserbaidschaner",
-        "Bahamaer",
-        "Bahrainer",
-        "Bangladescher",
-        "Barbadianer",
-        "Weißrusse",
-        "Belgier",
-        "Belizeaner",
-        "Beniner",
-        "Bhutaner",
-        "Bolivianer",
-        "Bosnier",
-        "Brasilianer",
-        "Brite",
-        "Bruneier",
-        "Bulgare",
-        "Burkinabe",
-        "Burundier",
-        "Kambodschaner",
-        "Kameruner",
-        "Kanadier",
-        "Kap-Verdianer",
-        "Zentralafrikaner",
-        "Tschader",
-        "Chilene",
-        "Chinese",
-        "Kolumbianer",
-        "Komorer",
-        "Kongolese",
-        "Costa Ricaner",
-        "Kroate",
-        "Kubaner",
-        "Zyprer",
-        "Tscheche",
-        "Däne",
-        "Dschibutier",
-        "Dominikaner",
-        "Niederländer",
-        "Osttimorese",
-        "Ecuadorianer",
-        "Ägypter",
-        "Emirati",
-        "Äquatorialguineer",
-        "Eritreer",
-        "Este",
-        "Äthiopier",
-        "Fidschianer",
-        "Filipino",
-        "Finne",
-        "Franzose",
-        "Gabuner",
-        "Gambier",
-        "Georgier",
-        "Deutscher",
-        "Ghanaer",
-        "Grieche",
-        "Grenadier",
-        "Guatemalteke",
-        "Guineer",
-        "Guyaner",
-        "Haitianer",
-        "Honduraner",
-        "Ungar",
-        "Isländer",
-        "Inder",
-        "Indonesier",
-        "Iraner",
-        "Iraker",
-        "Ire",
-        "Israeli",
-        "Italiener",
-        "Ivorer",
-        "Jamaikaner",
-        "Japaner",
-        "Jordanier",
-        "Kasache",
-        "Kenianer",
-        "Kittianer und Nevisianer",
-        "Kuwaiti",
-        "Kirgise",
-        "Laote",
-        "Lette",
-        "Libanese",
-        "Liberianer",
-        "Libyer",
-        "Liechtensteiner",
-        "Litauer",
-        "Luxemburger",
-        "Mazedonier",
-        "Madagasse",
-        "Malawier",
-        "Malayer",
-        "Maldivier",
-        "Malier",
-        "Maltese",
-        "Marshallesischer",
-        "Mauretanier",
-        "Mauritianer",
-        "Mexikaner",
-        "Mikronesier",
-        "Moldawier",
-        "Monegasse",
-        "Mongole",
-        "Montenegriner",
-        "Marokkaner",
-        "Mosotho",
-        "Motswana",
-        "Mosambikaner",
-        "Namibier",
-        "Nauruer",
-        "Nepalese",
-        "Neuseeländer",
-        "Nicaraguaner",
-        "Nigerianer",
-        "Nigerier",
-        "Nordkoreaner",
-        "Norweger",
-        "Omaner",
-        "Pakistani",
-        "Palauer",
-        "Panamani",
-        "Papua-Neuguineer",
-        "Paraguayer",
-        "Peruaner",
-        "Pole",
-        "Portugiese",
-        "Katarer",
-        "Rumäne",
-        "Russe",
-        "Ruander",
-        "Saint Lucianer",
-        "Salvadorianer",
-        "Samoaner",
-        "San Marinese",
-        "Sao Tomeaner",
-        "Saudi",
-        "Schotte",
-        "Senegalese",
-        "Serbe",
-        "Seycheller",
-        "Sierra Leoner",
-        "Singapurer",
-        "Slowake",
-        "Slowene",
-        "Salomonen-Insulaner",
-        "Somalier",
-        "Südafrikaner",
-        "Südkoreaner",
-        "Spanier",
-        "Sri Lanker",
-        "Sudanese",
-        "Surinamer",
-        "Swasi",
-        "Schwede",
-        "Schweizer",
-        "Syrer",
-        "Taiwanese",
-        "Tadschike",
-        "Tansanier",
-        "Thailänder",
-        "Togoer",
-        "Tonganer",
-        "Trinidadianer oder Tobagoner",
-        "Tunesier",
-        "Türke",
-        "Turkmenen",
-        "Tuvaluer",
-        "Ugander",
-        "Ukrainer",
-        "Uruguayer",
-        "Usbeke",
-        "Venezolaner",
-        "Vietnamese",
-        "Waliser",
-        "Jemenit",
-        "Sambier",
-        "Simbabwer",
-      ],
-      abroadCity: "",
-      document: null,
-      documents: ["Passport", "ID document", "Child’s passport"],
-      validFrom: "",
-      validTo: "",
-      co: "",
-      secondNationality: null,
-      authorityName: "",
-      placeName: "",
-      serialNum: "",
-      marital: null,
-      maritalStatus: [
-        "Married",
-        "Single",
-        "Civil partnership",
-        "Widowed",
-        "Civil partner deceased",
-        "Divorced",
-        "Civil partnership dissolved",
-      ],
-      maritalStatusGr: [
-        "Verheiratet",
-        "Einzel",
-        "Lebenspartnerschaft",
-        "Verwitwet",
-        "Lebenspartner verstorben",
-        "Geschieden",
-        "Lebenspartnerschaft aufgelöst",
-      ],
-      marriedFrom: "",
-      marriagePlace: "",
-      marriageCountry: "",
-      people: [],
-      apartmentNum: 1,
-      apartmentNums: [
-        {
-          id: 1,
-          name: "Your only apartment",
+  data() {
+    return {
+      load: false,
+      formData: {
+        firstName: "",
+        lastName: "",
+        maidenName: "",
+        gender: null,
+        genders: ["Male", "Female", "Other"],
+        stageName: "",
+        religion: null,
+        religions: [
+          "Roman Catholic",
+          "Old Catholic",
+          "Evangelical",
+          "Evangelical-Lutheran",
+          "Protestant Reformed",
+          "Israelite religious communities (in Bavaria)",
+          "None/other",
+        ],
+        date: "",
+        birthPlace: "",
+        abroadCountry: "",
+        birthCountry: null,
+        countries: [
+          "Afghanistan",
+          "Albania",
+          "Algeria",
+          "Andorra",
+          "Angola",
+          "Antigua and Barbuda",
+          "Argentina",
+          "Armenia",
+          "Australia",
+          "Austria",
+          "Azerbaijan",
+          "Bahamas",
+          "Bahrain",
+          "Bangladesh",
+          "Barbados",
+          "Belarus",
+          "Belgium",
+          "Belize",
+          "Benin",
+          "Bhutan",
+          "Bolivia",
+          "Bosnia and Herzegovina",
+          "Botswana",
+          "Brazil",
+          "Brunei",
+          "Bulgaria",
+          "Burkina Faso",
+          "Burundi",
+          "Cabo Verde",
+          "Cambodia",
+          "Cameroon",
+          "Canada",
+          "Central African Republic",
+          "Chad",
+          "Chile",
+          "China",
+          "Colombia",
+          "Comoros",
+          "Congo, Democratic Republic of the",
+          "Congo, Republic of the",
+          "Costa Rica",
+          "Croatia",
+          "Cuba",
+          "Cyprus",
+          "Czech Republic",
+          "Denmark",
+          "Djibouti",
+          "Dominica",
+          "Dominican Republic",
+          "East Timor",
+          "Ecuador",
+          "Egypt",
+          "El Salvador",
+          "Equatorial Guinea",
+          "Eritrea",
+          "Estonia",
+          "Eswatini",
+          "Ethiopia",
+          "Fiji",
+          "Finland",
+          "France",
+          "Gabon",
+          "Gambia",
+          "Georgia",
+          "Germany",
+          "Ghana",
+          "Greece",
+          "Grenada",
+          "Guatemala",
+          "Guinea",
+          "Guinea-Bissau",
+          "Guyana",
+          "Haiti",
+          "Honduras",
+          "Hungary",
+          "Iceland",
+          "India",
+          "Indonesia",
+          "Iran",
+          "Iraq",
+          "Ireland",
+          "Israel",
+          "Italy",
+          "Jamaica",
+          "Japan",
+          "Jordan",
+          "Kazakhstan",
+          "Kenya",
+          "Kiribati",
+          "Korea, North",
+          "Korea, South",
+          "Kosovo",
+          "Kuwait",
+          "Kyrgyzstan",
+          "Laos",
+          "Latvia",
+          "Lebanon",
+          "Lesotho",
+          "Liberia",
+          "Libya",
+          "Liechtenstein",
+          "Lithuania",
+          "Luxembourg",
+          "Madagascar",
+          "Malawi",
+          "Malaysia",
+          "Maldives",
+          "Mali",
+          "Malta",
+          "Marshall Islands",
+          "Mauritania",
+          "Mauritius",
+          "Mexico",
+          "Micronesia",
+          "Moldova",
+          "Monaco",
+          "Mongolia",
+          "Montenegro",
+          "Morocco",
+          "Mozambique",
+          "Myanmar",
+          "Namibia",
+          "Nauru",
+          "Nepal",
+          "Netherlands",
+          "New Zealand",
+          "Nicaragua",
+          "Niger",
+          "Nigeria",
+          "North Macedonia",
+          "Norway",
+          "Oman",
+          "Pakistan",
+          "Palau",
+          "Panama",
+          "Papua New Guinea",
+          "Paraguay",
+          "Peru",
+          "Philippines",
+          "Poland",
+          "Portugal",
+          "Qatar",
+          "Romania",
+          "Russia",
+          "Rwanda",
+          "Saint Kitts and Nevis",
+          "Saint Lucia",
+          "Saint Vincent and the Grenadines",
+          "Samoa",
+          "San Marino",
+          "Sao Tome and Principe",
+          "Saudi Arabia",
+          "Senegal",
+          "Serbia",
+          "Seychelles",
+          "Sierra Leone",
+          "Singapore",
+          "Slovakia",
+          "Slovenia",
+          "Solomon Islands",
+          "Somalia",
+          "South Africa",
+          "Spain",
+          "Sri Lanka",
+          "Sudan",
+          "Sudan, South",
+          "Suriname",
+          "Sweden",
+          "Switzerland",
+          "Syria",
+          "Taiwan",
+          "Tajikistan",
+          "Tanzania",
+          "Thailand",
+          "Togo",
+          "Tonga",
+          "Trinidad and Tobago",
+          "Tunisia",
+          "Turkey",
+          "Turkmenistan",
+          "Tuvalu",
+          "Uganda",
+          "Ukraine",
+          "United Arab Emirates",
+          "United Kingdom",
+          "United States",
+          "Uruguay",
+          "Uzbekistan",
+          "Vanuatu",
+          "Vatican City",
+          "Venezuela",
+          "Vietnam",
+          "Yemen",
+          "Zambia",
+          "Zimbabwe",
+        ],
+        nationality: null,
+        nationalities: [],
+        nationalitiesGr: [
+          "Afghane",
+          "Albaner",
+          "Algerier",
+          "Amerikaner",
+          "Andorraner",
+          "Angolaner",
+          "Antiguaner",
+          "Argentinier",
+          "Armenier",
+          "Australier",
+          "Österreicher",
+          "Aserbaidschaner",
+          "Bahamaer",
+          "Bahrainer",
+          "Bangladescher",
+          "Barbadianer",
+          "Weißrusse",
+          "Belgier",
+          "Belizeaner",
+          "Beniner",
+          "Bhutaner",
+          "Bolivianer",
+          "Bosnier",
+          "Brasilianer",
+          "Brite",
+          "Bruneier",
+          "Bulgare",
+          "Burkinabe",
+          "Burundier",
+          "Kambodschaner",
+          "Kameruner",
+          "Kanadier",
+          "Kap-Verdianer",
+          "Zentralafrikaner",
+          "Tschader",
+          "Chilene",
+          "Chinese",
+          "Kolumbianer",
+          "Komorer",
+          "Kongolese",
+          "Costa Ricaner",
+          "Kroate",
+          "Kubaner",
+          "Zyprer",
+          "Tscheche",
+          "Däne",
+          "Dschibutier",
+          "Dominikaner",
+          "Niederländer",
+          "Osttimorese",
+          "Ecuadorianer",
+          "Ägypter",
+          "Emirati",
+          "Äquatorialguineer",
+          "Eritreer",
+          "Este",
+          "Äthiopier",
+          "Fidschianer",
+          "Filipino",
+          "Finne",
+          "Franzose",
+          "Gabuner",
+          "Gambier",
+          "Georgier",
+          "Deutscher",
+          "Ghanaer",
+          "Grieche",
+          "Grenadier",
+          "Guatemalteke",
+          "Guineer",
+          "Guyaner",
+          "Haitianer",
+          "Honduraner",
+          "Ungar",
+          "Isländer",
+          "Inder",
+          "Indonesier",
+          "Iraner",
+          "Iraker",
+          "Ire",
+          "Israeli",
+          "Italiener",
+          "Ivorer",
+          "Jamaikaner",
+          "Japaner",
+          "Jordanier",
+          "Kasache",
+          "Kenianer",
+          "Kittianer und Nevisianer",
+          "Kuwaiti",
+          "Kirgise",
+          "Laote",
+          "Lette",
+          "Libanese",
+          "Liberianer",
+          "Libyer",
+          "Liechtensteiner",
+          "Litauer",
+          "Luxemburger",
+          "Mazedonier",
+          "Madagasse",
+          "Malawier",
+          "Malayer",
+          "Maldivier",
+          "Malier",
+          "Maltese",
+          "Marshallesischer",
+          "Mauretanier",
+          "Mauritianer",
+          "Mexikaner",
+          "Mikronesier",
+          "Moldawier",
+          "Monegasse",
+          "Mongole",
+          "Montenegriner",
+          "Marokkaner",
+          "Mosotho",
+          "Motswana",
+          "Mosambikaner",
+          "Namibier",
+          "Nauruer",
+          "Nepalese",
+          "Neuseeländer",
+          "Nicaraguaner",
+          "Nigerianer",
+          "Nigerier",
+          "Nordkoreaner",
+          "Norweger",
+          "Omaner",
+          "Pakistani",
+          "Palauer",
+          "Panamani",
+          "Papua-Neuguineer",
+          "Paraguayer",
+          "Peruaner",
+          "Pole",
+          "Portugiese",
+          "Katarer",
+          "Rumäne",
+          "Russe",
+          "Ruander",
+          "Saint Lucianer",
+          "Salvadorianer",
+          "Samoaner",
+          "San Marinese",
+          "Sao Tomeaner",
+          "Saudi",
+          "Schotte",
+          "Senegalese",
+          "Serbe",
+          "Seycheller",
+          "Sierra Leoner",
+          "Singapurer",
+          "Slowake",
+          "Slowene",
+          "Salomonen-Insulaner",
+          "Somalier",
+          "Südafrikaner",
+          "Südkoreaner",
+          "Spanier",
+          "Sri Lanker",
+          "Sudanese",
+          "Surinamer",
+          "Swasi",
+          "Schwede",
+          "Schweizer",
+          "Syrer",
+          "Taiwanese",
+          "Tadschike",
+          "Tansanier",
+          "Thailänder",
+          "Togoer",
+          "Tonganer",
+          "Trinidadianer oder Tobagoner",
+          "Tunesier",
+          "Türke",
+          "Turkmenen",
+          "Tuvaluer",
+          "Ugander",
+          "Ukrainer",
+          "Uruguayer",
+          "Usbeke",
+          "Venezolaner",
+          "Vietnamese",
+          "Waliser",
+          "Jemenit",
+          "Sambier",
+          "Simbabwer",
+        ],
+        abroadCity: "",
+        document: null,
+        documents: ["Passport", "ID document", "Child’s passport"],
+        validFrom: "",
+        validTo: "",
+        co: "",
+        secondNationality: null,
+        authorityName: "",
+        placeName: "",
+        serialNum: "",
+        marital: null,
+        maritalStatus: [
+          "Married",
+          "Single",
+          "Civil partnership",
+          "Widowed",
+          "Civil partner deceased",
+          "Divorced",
+          "Civil partnership dissolved",
+        ],
+        maritalStatusGr: [
+          "Verheiratet",
+          "Einzel",
+          "Lebenspartnerschaft",
+          "Verwitwet",
+          "Lebenspartner verstorben",
+          "Geschieden",
+          "Lebenspartnerschaft aufgelöst",
+        ],
+        marriedFrom: "",
+        marriagePlace: "",
+        marriageCountry: "",
+        people: [],
+        apartmentNum: 1,
+        apartmentNums: [
+          {
+            id: 1,
+            name: "Your only apartment",
+          },
+          {
+            id: 2,
+            name: "A second apartment, but will be my main one",
+          },
+          {
+            id: 3,
+            name: "A second apartment, but will be a secondary one",
+          },
+        ],
+        address: "",
+        prevAddress: "",
+        postCode: "",
+        prevPostCode: "",
+        prevCity: "",
+        moved: "",
+        movedOut: "",
+        city: "",
+        floor: 0,
+        prevFloor: 0,
+        floorRule: (val) => {
+          if (val < 0) return "Please enter a positive number";
+          return true;
         },
-        {
-          id: 2,
-          name: "A second apartment, but will be my main one",
-        },
-        {
-          id: 3,
-          name: "A second apartment, but will be a secondary one",
-        },
-      ],
-      address: "",
-      prevAddress: "",
-      postCode: "",
-      prevPostCode: "",
-      prevCity: "",
-      moved: "",
-      movedOut: "",
-      city: "",
-      floor: 0,
-      prevFloor: 0,
-      floorRule: (val) => {
-        if (val < 0) return "Please enter a positive number";
-        return true;
+        doorSide: 1,
+        doorSides: [
+          {
+            id: 1,
+            name: "On the left",
+            abr: "Li",
+          },
+          {
+            id: 2,
+            name: "In the middle",
+            abr: "Mi",
+          },
+          {
+            id: 3,
+            name: "On the right",
+            abr: "Re",
+          },
+        ],
+        moveToGermany: 1,
+        moveToGermanyOptions: [
+          {
+            id: 1,
+            name: "From abroad",
+          },
+          {
+            id: 2,
+            name: "From within Germany",
+          },
+        ],
+        previousApart: 1,
+        previousApartOptions: [
+          {
+            id: 1,
+            name: "No, this is my only apartment",
+          },
+          {
+            id: 2,
+            name: "Yes, and my previous apartment will be my main one",
+          },
+          {
+            id: 3,
+            name: "Yes, and my previous apartment will be my secondary one",
+          },
+        ],
+        keepingPrvAprt: 1,
+        keepingPrvAprtOp: [
+          {
+            id: 1,
+            name: "Your only apartment",
+          },
+          {
+            id: 2,
+            name: "A second apartment, but will be my main one",
+          },
+          {
+            id: 3,
+            name: "A second apartment, but will be a secondary one",
+          },
+        ],
+        havApart: 2,
+        havApartOptions: [
+          {
+            id: 1,
+            name: "Yes",
+          },
+          {
+            id: 2,
+            name: "No",
+          },
+        ],
       },
-      doorSide: 1,
-      doorSides: [
-        {
-          id: 1,
-          name: "On the left",
-          abr: "Li",
-        },
-        {
-          id: 2,
-          name: "In the middle",
-          abr: "Mi",
-        },
-        {
-          id: 3,
-          name: "On the right",
-          abr: "Re",
-        },
-      ],
-      moveToGermany: 1,
-      moveToGermanyOptions: [
-        {
-          id: 1,
-          name: "From abroad",
-        },
-        {
-          id: 2,
-          name: "From within Germany",
-        },
-      ],
-      previousApart: 1,
-      previousApartOptions: [
-        {
-          id: 1,
-          name: "No, this is my only apartment",
-        },
-        {
-          id: 2,
-          name: "Yes, and my previous apartment will be my main one",
-        },
-        {
-          id: 3,
-          name: "Yes, and my previous apartment will be my secondary one",
-        },
-      ],
-      keepingPrvAprt: 1,
-      keepingPrvAprtOp: [
-        {
-          id: 1,
-          name: "Your only apartment",
-        },
-        {
-          id: 2,
-          name: "A second apartment, but will be my main one",
-        },
-        {
-          id: 3,
-          name: "A second apartment, but will be a secondary one",
-        },
-      ],
-      havApart: 2,
-      havApartOptions: [
-        {
-          id: 1,
-          name: "Yes",
-        },
-        {
-          id: 2,
-          name: "No",
-        },
-      ],
-    },
-    date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    dateFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    birthDate: false,
-
-    validFrom: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    validFromFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    validFromDate: false,
-
-    validTo: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    validToFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    validToDate: false,
-
-    marriedFrom: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    marriedFromFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    marriedFromDate: false,
-
-    moved: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    movingDateFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    movingDate: false,
-
-    movedOut: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    movingOutDateFormatted: vm.formatDate(
-      new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10)
-    ),
-    movingOutDate: false,
-  }),
+    };
+  },
 
   computed: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
-    },
-    computedValidFromFormatted() {
-      return this.formatDate(this.validFrom);
-    },
-    computedValidToFormatted() {
-      return this.formatDate(this.validTo);
-    },
-    computedMarriedFromFormatted() {
-      return this.formatDate(this.marriedFrom);
-    },
-    computedMovedFormatted() {
-      return this.formatDate(this.moved);
-    },
-    computedMovedOutFormatted() {
-      return this.formatDate(this.movedOut);
+    moveToGermany() {
+      return this.formData.moveToGermany;
     },
   },
 
   watch: {
-    date() {
-      this.dateFormatted = this.formatDate(this.date);
-      this.formData.birthDate = this.dateFormatted;
-    },
-    validFrom() {
-      this.validFromFormatted = this.formatDate(this.validFrom);
-      this.formData.validFrom = this.validFromFormatted;
-    },
-    validTo() {
-      this.validToFormatted = this.formatDate(this.validTo);
-      this.formData.validTo = this.validToFormatted;
-    },
-    marriedFrom() {
-      this.marriedFromFormatted = this.formatDate(this.marriedFrom);
-      this.formData.marriedFrom = this.marriedFromFormatted;
-    },
-    moved() {
-      this.movingDateFormatted = this.formatDate(this.moved);
-      this.formData.moved = this.movingDateFormatted;
-    },
-    movedOut() {
-      this.movingOutDateFormatted = this.formatDate(this.moved);
-      this.formData.movedOut = this.movingOutDateFormatted;
+    moveToGermany() {
+      if (this.formData.moveToGermany === 2) {
+        this.$refs.abroadCity.reset();
+        this.$refs.abroadCountry.reset();
+      } else {
+        this.$refs.keepingPrvAprt = 1;
+        this.$refs.prevAddress.reset();
+        this.$refs.prevPostCode.reset();
+        this.$refs.prevCity.reset();
+        this.$refs.prevFloor.reset();
+        this.$refs.movedOut.reset();
+      }
     },
   },
 
   methods: {
+    validateDate() {
+      this.$refs.observer.validate();
+    },
     addPerson() {
       this.formData.people.push({
         FirstName: "",
@@ -1965,72 +1735,22 @@ export default {
         MaidenName: "",
         Gender: null,
         Religion: null,
+        stageName: "",
+        birthDate: "",
+        birthPlace: "",
+        birthCountry: "",
+        nationality: "",
+        secondNationality: "",
+        document: "",
+        authorityName: "",
+        serialNum: "",
+        validFrom: "",
+        validTo: "",
       });
     },
     removePerson(index) {
       this.formData.people.splice(index, 1);
     },
-    formatDate(date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split("-");
-      return `${day}.${month}.${year}`;
-    },
-    parseDateBirth(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.birthDate = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-    parseDateVF(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.validFrom = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-    parseDateVT(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.validTo = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-    parseDateMF(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.marriedFrom = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-    parseDateM(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.moved = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-    parseDateMO(date) {
-      if (!date) {
-        return null;
-      } else {
-        this.formData.movedOut = date;
-      }
-      const [year, month, day] = date.split(".");
-      return `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
-    },
-
     async submitForm() {
       this.load = true;
       const response = await axios.post(
@@ -2058,168 +1778,12 @@ export default {
     },
   },
   mounted() {
-    this.formData.nationalities = this.formData.nationalitiesOrdered.sort();
     this.formData.countries.sort();
-    console.log(this.formData.countries);
+    this.formData.nationalities = this.formData.countries.sort();
   },
 };
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
-
-body {
-  margin: 0;
-  font-family: "Merriweather Sans", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
-  #app {
-    font-family: "Merriweather Sans", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #333;
-    min-height: 100vh;
-    background: #e9ecef;
-  }
-  .form {
-    background-color: #f2f2f2;
-    .top-bar {
-      background-color: #3894d3;
-      height: 50px;
-      padding: 0.5rem;
-      text-align: center;
-      .logo {
-        position: absolute;
-        margin-left: -40px;
-      }
-    }
-    .container {
-      max-width: 700px;
-      padding: 3rem 0;
-      .about-section {
-        .form-header {
-          margin-bottom: 0.5rem;
-          font-family: "Merriweather Sans", sans-serif;
-          font-size: 48px;
-          font-weight: 700;
-          text-align: center;
-          color: #333;
-        }
-        .about-description {
-          max-width: 523px;
-          margin: 40px auto;
-          font-size: 1rem;
-          font-family: "Merriweather", serif;
-        }
-      }
-      .form-card {
-        border-radius: 12px;
-        padding: 70px 100px;
-        .one-person-form,
-        .apartment-form {
-          border-top: 2px solid;
-          border-bottom: 2px solid;
-          &._second {
-            border-top: 0px;
-          }
-          &._last {
-            border-bottom: 0px;
-          }
-          .opf-title {
-            font-family: "Merriweather Sans", sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            line-height: 28px;
-            margin: 8px 0 32px;
-            letter-spacing: 0em;
-            text-align: left;
-            color: #333;
-            text-transform: uppercase;
-          }
-          .opf-desc {
-            font-family: "Merriweather", serif;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 28px;
-            letter-spacing: 0em;
-            text-align: left;
-            color: #333;
-          }
-          .opf-section-title-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .tooltip {
-              text-align: -webkit-right;
-              position: relative;
-              i {
-                z-index: 2;
-              }
-              .tp {
-                position: absolute;
-                background-color: white;
-                color: #333;
-                font-family: "Merriweather", serif;
-                font-size: 12px;
-                font-weight: 400;
-                line-height: 21px;
-                letter-spacing: 0em;
-                text-align: left;
-                border: 1px solid #3894d3;
-                border-radius: 6px 14px 6px 6px;
-                width: 300px;
-                right: 0;
-                padding: 10px 30px 10px 10px;
-                top: 0px;
-                z-index: 1;
-                transition-duration: 0.3s;
-                transition-timing-function: ease-in;
-                &.show-tooltip {
-                  opacity: 1;
-                }
-                &.hide-tooltip {
-                  opacity: 0;
-                }
-              }
-            }
-          }
-          .opf-section-title {
-            font-family: "Merriweather Sans", sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 24px;
-            letter-spacing: 0em;
-            text-align: left;
-            margin-bottom: 8px;
-            color: #333;
-            span {
-              font-family: "Merriweather", serif;
-              font-size: 16px;
-              font-weight: 400;
-              line-height: 28px;
-              letter-spacing: 0em;
-              text-align: left;
-              color: #b3b3b3;
-            }
-          }
-          .disclaimer {
-            font-family: "Merriweather", serif;
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 21px;
-            letter-spacing: 0em;
-            text-align: left;
-            color: #333;
-          }
-        }
-      }
-    }
-  }
-  .v-tooltip__content {
-  }
-}
+@import "./assets/scss/main.scss";
 </style>
