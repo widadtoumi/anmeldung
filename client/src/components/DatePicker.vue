@@ -73,8 +73,8 @@ export default {
     formatDate(date) {
       if (!date) return null;
 
-      const formattedDate = new Date(date).toLocaleDateString("en-GB");
-      return formattedDate;
+      const [year, month, day] = date.split("-");
+      return `${day}.${month}.${year}`;
     },
     parseDate(date) {
       if (!date) {
