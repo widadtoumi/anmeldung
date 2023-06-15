@@ -73,7 +73,7 @@ export default {
     formatDate(date) {
       if (!date) return null;
 
-      const [year, month, day] = date.split(".");
+      const [year, month, day] = date.split("-");
       return `${day}.${month}.${year}`;
     },
     parseDate(date) {
@@ -81,7 +81,7 @@ export default {
         this.date = null;
       } else {
         const [day, month, year] = date.split(".");
-        this.date = `${day}.${month}.${year}`;
+        this.date = `${year}-${month}-${day}`;
       }
     },
   },
