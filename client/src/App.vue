@@ -78,6 +78,8 @@
                     <v-select
                       v-model="formData.gender"
                       :items="formData.genders"
+                      item-text="text"
+                      item-value="abbr"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -96,6 +98,8 @@
                     <v-select
                       v-model="formData.religion"
                       :items="formData.religions"
+                      item-text="text"
+                      item-value="abbr"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -180,6 +184,8 @@
                     <v-select
                       v-model="formData.birthCountry"
                       :items="formData.countries"
+                      item-text="text"
+                      item-value="value"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -197,7 +203,9 @@
                   >
                     <v-select
                       v-model="formData.nationality"
-                      :items="formData.nationalities"
+                      :items="formData.countries"
+                      item-text="text"
+                      item-value="value"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -216,7 +224,9 @@
                   >
                     <v-select
                       v-model="formData.secondNationality"
-                      :items="formData.nationalities"
+                      :items="formData.countries"
+                      item-text="text"
+                      item-value="value"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -234,6 +244,8 @@
                     <v-select
                       v-model="formData.document"
                       :items="formData.documents"
+                      item-text="text"
+                      item-value="abbr"
                       :error-messages="errors"
                       placeholder="- Please choose -"
                       required
@@ -317,6 +329,8 @@
                     <v-select
                       v-model="formData.marital"
                       :items="formData.maritalStatus"
+                      item-text="text"
+                      item-value="abbr"
                       :error-messages="errors"
                       placeholder="- Please choose -"
                       outlined
@@ -372,6 +386,8 @@
                       <v-select
                         v-model="formData.marriageCountry"
                         :items="formData.countries"
+                        item-text="text"
+                        item-value="value"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -449,6 +465,8 @@
                       <v-select
                         v-model="person.Gender"
                         :items="formData.genders"
+                        item-text="text"
+                        item-value="abbr"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -467,6 +485,8 @@
                       <v-select
                         v-model="person.Religion"
                         :items="formData.religions"
+                        item-text="text"
+                        item-value="abbr"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -554,6 +574,8 @@
                       <v-select
                         v-model="person.birthCountry"
                         :items="formData.countries"
+                        item-text="text"
+                        item-value="value"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -571,7 +593,9 @@
                     >
                       <v-select
                         v-model="person.nationality"
-                        :items="formData.nationalities"
+                        :items="formData.countries"
+                        item-text="text"
+                        item-value="value"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -590,7 +614,9 @@
                     >
                       <v-select
                         v-model="person.secondNationality"
-                        :items="formData.nationalities"
+                        :items="formData.countries"
+                        item-text="text"
+                        item-value="value"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -608,6 +634,8 @@
                       <v-select
                         v-model="person.document"
                         :items="formData.documents"
+                        item-text="text"
+                        item-value="abbr"
                         :error-messages="errors"
                         placeholder="- Please choose -"
                         required
@@ -1011,6 +1039,8 @@
                       <v-select
                         v-model="formData.abroadCountry"
                         :items="formData.countries"
+                        item-text="text"
+                        item-value="value"
                         :error-messages="errors"
                         label="- Please choose -"
                         ref="abroadCountry"
@@ -1161,414 +1191,247 @@ export default {
         lastName: "",
         maidenName: "",
         gender: null,
-        genders: ["Male", "Female", "Other"],
+        genders: [
+          { text: "Male", abbr: "M" },
+          { text: "Female", abbr: "W" },
+          { text: "Other", abbr: "X" },
+        ],
         stageName: "",
         religion: null,
         religions: [
-          "Roman Catholic",
-          "Old Catholic",
-          "Evangelical",
-          "Evangelical-Lutheran",
-          "Protestant Reformed",
-          "Israelite religious communities (in Bavaria)",
-          "None/other",
+          { text: "Roman Catholic", abbr: "rk" },
+          { text: "Old Catholic", abbr: "ak" },
+          { text: "Evangelical", abbr: "ev" },
+          { text: "Evangelical-Lutheran", abbr: "It" },
+          { text: "Protestant Reformed", abbr: "rf" },
+          {
+            text: "Israelite religious communities (in Bavaria)",
+            abbr: "isby",
+          },
+          { text: "None/other", abbr: "oa" },
         ],
         date: "",
         birthPlace: "",
         abroadCountry: "",
         birthCountry: null,
         countries: [
-          "Afghanistan",
-          "Albania",
-          "Algeria",
-          "Andorra",
-          "Angola",
-          "Antigua and Barbuda",
-          "Argentina",
-          "Armenia",
-          "Australia",
-          "Austria",
-          "Azerbaijan",
-          "Bahamas",
-          "Bahrain",
-          "Bangladesh",
-          "Barbados",
-          "Belarus",
-          "Belgium",
-          "Belize",
-          "Benin",
-          "Bhutan",
-          "Bolivia",
-          "Bosnia and Herzegovina",
-          "Botswana",
-          "Brazil",
-          "Brunei",
-          "Bulgaria",
-          "Burkina Faso",
-          "Burundi",
-          "Cabo Verde",
-          "Cambodia",
-          "Cameroon",
-          "Canada",
-          "Central African Republic",
-          "Chad",
-          "Chile",
-          "China",
-          "Colombia",
-          "Comoros",
-          "Congo, Democratic Republic of the",
-          "Congo, Republic of the",
-          "Costa Rica",
-          "Croatia",
-          "Cuba",
-          "Cyprus",
-          "Czech Republic",
-          "Denmark",
-          "Djibouti",
-          "Dominica",
-          "Dominican Republic",
-          "East Timor",
-          "Ecuador",
-          "Egypt",
-          "El Salvador",
-          "Equatorial Guinea",
-          "Eritrea",
-          "Estonia",
-          "Eswatini",
-          "Ethiopia",
-          "Fiji",
-          "Finland",
-          "France",
-          "Gabon",
-          "Gambia",
-          "Georgia",
-          "Germany",
-          "Ghana",
-          "Greece",
-          "Grenada",
-          "Guatemala",
-          "Guinea",
-          "Guinea-Bissau",
-          "Guyana",
-          "Haiti",
-          "Honduras",
-          "Hungary",
-          "Iceland",
-          "India",
-          "Indonesia",
-          "Iran",
-          "Iraq",
-          "Ireland",
-          "Israel",
-          "Italy",
-          "Jamaica",
-          "Japan",
-          "Jordan",
-          "Kazakhstan",
-          "Kenya",
-          "Kiribati",
-          "Korea, North",
-          "Korea, South",
-          "Kosovo",
-          "Kuwait",
-          "Kyrgyzstan",
-          "Laos",
-          "Latvia",
-          "Lebanon",
-          "Lesotho",
-          "Liberia",
-          "Libya",
-          "Liechtenstein",
-          "Lithuania",
-          "Luxembourg",
-          "Madagascar",
-          "Malawi",
-          "Malaysia",
-          "Maldives",
-          "Mali",
-          "Malta",
-          "Marshall Islands",
-          "Mauritania",
-          "Mauritius",
-          "Mexico",
-          "Micronesia",
-          "Moldova",
-          "Monaco",
-          "Mongolia",
-          "Montenegro",
-          "Morocco",
-          "Mozambique",
-          "Myanmar",
-          "Namibia",
-          "Nauru",
-          "Nepal",
-          "Netherlands",
-          "New Zealand",
-          "Nicaragua",
-          "Niger",
-          "Nigeria",
-          "North Macedonia",
-          "Norway",
-          "Oman",
-          "Pakistan",
-          "Palau",
-          "Panama",
-          "Papua New Guinea",
-          "Paraguay",
-          "Peru",
-          "Philippines",
-          "Poland",
-          "Portugal",
-          "Qatar",
-          "Romania",
-          "Russia",
-          "Rwanda",
-          "Saint Kitts and Nevis",
-          "Saint Lucia",
-          "Saint Vincent and the Grenadines",
-          "Samoa",
-          "San Marino",
-          "Sao Tome and Principe",
-          "Saudi Arabia",
-          "Senegal",
-          "Serbia",
-          "Seychelles",
-          "Sierra Leone",
-          "Singapore",
-          "Slovakia",
-          "Slovenia",
-          "Solomon Islands",
-          "Somalia",
-          "South Africa",
-          "Spain",
-          "Sri Lanka",
-          "Sudan",
-          "Sudan, South",
-          "Suriname",
-          "Sweden",
-          "Switzerland",
-          "Syria",
-          "Taiwan",
-          "Tajikistan",
-          "Tanzania",
-          "Thailand",
-          "Togo",
-          "Tonga",
-          "Trinidad and Tobago",
-          "Tunisia",
-          "Turkey",
-          "Turkmenistan",
-          "Tuvalu",
-          "Uganda",
-          "Ukraine",
-          "United Arab Emirates",
-          "United Kingdom",
-          "United States",
-          "Uruguay",
-          "Uzbekistan",
-          "Vanuatu",
-          "Vatican City",
-          "Venezuela",
-          "Vietnam",
-          "Yemen",
-          "Zambia",
-          "Zimbabwe",
+          { value: "Afghanistan", text: "Afghanistan" },
+          { value: "Albanien", text: "Albania" },
+          { value: "Algerien", text: "Algeria" },
+          { value: "Andorra", text: "Andorra" },
+          { value: "Angola", text: "Angola" },
+          { value: "Antigua und Barbuda", text: "Antigua and Barbuda" },
+          { value: "Argentinien", text: "Argentina" },
+          { value: "Armenien", text: "Armenia" },
+          { value: "Australien", text: "Australia" },
+          { value: "Österreich", text: "Austria" },
+          { value: "Aserbaidschan", text: "Azerbaijan" },
+          { value: "Bahamas", text: "Bahamas" },
+          { value: "Bahrain", text: "Bahrain" },
+          { value: "Bangladesch", text: "Bangladesh" },
+          { value: "Barbados", text: "Barbados" },
+          { value: "Weißrussland", text: "Belarus" },
+          { value: "Belgien", text: "Belgium" },
+          { value: "Belize", text: "Belize" },
+          { value: "Benin", text: "Benin" },
+          { value: "Bhutan", text: "Bhutan" },
+          { value: "Bolivien", text: "Bolivia" },
+          { value: "Bosnien und Herzegowina", text: "Bosnia and Herzegovina" },
+          { value: "Botswana", text: "Botswana" },
+          { value: "Brasilien", text: "Brazil" },
+          { value: "Brunei", text: "Brunei" },
+          { value: "Bulgarien", text: "Bulgaria" },
+          { value: "Burkina Faso", text: "Burkina Faso" },
+          { value: "Burundi", text: "Burundi" },
+          { value: "Kambodscha", text: "Cambodia" },
+          { value: "Kamerun", text: "Cameroon" },
+          { value: "Kanada", text: "Canada" },
+          { value: "Kap Verde", text: "Cape Verde" },
+          {
+            value: "Zentralafrikanische Republik",
+            text: "Central African Republic",
+          },
+          { value: "Tschad", text: "Chad" },
+          { value: "Chile", text: "Chile" },
+          { value: "China", text: "China" },
+          { value: "Kolumbien", text: "Colombia" },
+          { value: "Komoren", text: "Comoros" },
+          { value: "Costa Rica", text: "Costa Rica" },
+          { value: "Elfenbeinküste", text: "Côte d’Ivoire" },
+          { value: "Kroatien", text: "Croatia" },
+          { value: "Kuba", text: "Cuba" },
+          { value: "Zypern", text: "Cyprus" },
+          { value: "Tschechien", text: "Czech Republic" },
+          {
+            value: "Demokratische Republik Kongo",
+            text: "Democratic Republic of the Congo",
+          },
+          { value: "Dänemark", text: "Denmark" },
+          { value: "Dschibuti", text: "Djibouti" },
+          { value: "Dominica", text: "Dominica" },
+          { value: "Dominikanische Republik", text: "Dominican Republic" },
+          { value: "Osttimor", text: "East Timor" },
+          { value: "Ecuador", text: "Ecuador" },
+          { value: "Ägypten", text: "Egypt" },
+          { value: "El Salvador", text: "El Salvador" },
+          { value: "Äquatorialguinea", text: "Equatorial Guinea" },
+          { value: "Eritrea", text: "Eritrea" },
+          { value: "Estland", text: "Estonia" },
+          { value: "Äthiopien", text: "Ethiopia" },
+          { value: "Fidschi", text: "Fiji" },
+          { value: "Finnland", text: "Finland" },
+          { value: "Frankreich", text: "France" },
+          { value: "Gabun", text: "Gabon" },
+          { value: "Gambia", text: "Gambia" },
+          { value: "Georgia", text: "Georgia" },
+          { value: "Deutschland", text: "Germany" },
+          { value: "Ghana", text: "Ghana" },
+          { value: "Griechenland", text: "Greece" },
+          { value: "Grenada", text: "Grenada" },
+          { value: "Guatemala", text: "Guatemala" },
+          { value: "Guinea", text: "Guinea" },
+          { value: "Guinea-Bissau", text: "Guinea-Bissau" },
+          { value: "Guyana", text: "Guyana" },
+          { value: "Haiti", text: "Haiti" },
+          { value: "Honduras", text: "Honduras" },
+          { value: "Ungarn", text: "Hungary" },
+          { value: "Island", text: "Iceland" },
+          { value: "Indien", text: "India" },
+          { value: "Indonesien", text: "Indonesia" },
+          { value: "Iran", text: "Iran" },
+          { value: "Irak", text: "Iraq" },
+          { value: "Irland", text: "Ireland" },
+          { value: "Israel", text: "Israel" },
+          { value: "Italien", text: "Italy" },
+          { value: "Jamaika", text: "Jamaica" },
+          { value: "Japan", text: "Japan" },
+          { value: "Jordan", text: "Jordan" },
+          { value: "Kasachstan", text: "Kazakhstan" },
+          { value: "Kenia", text: "Kenya" },
+          { value: "Kiribati", text: "Kiribati" },
+          { value: "Kuwait", text: "Kuwait" },
+          { value: "Kirgisistan", text: "Kyrgyzstan" },
+          { value: "Laos", text: "Laos" },
+          { value: "Lettland", text: "Latvia" },
+          { value: "Libanon", text: "Lebanon" },
+          { value: "Lesotho", text: "Lesotho" },
+          { value: "Liberia", text: "Liberia" },
+          { value: "Libyen", text: "Libya" },
+          { value: "Liechtenstein", text: "Liechtenstein" },
+          { value: "Litauen", text: "Lithuania" },
+          { value: "Luxemburg", text: "Luxembourg" },
+          { value: "Madagaskar", text: "Madagascar" },
+          { value: "Malawi", text: "Malawi" },
+          { value: "Malaysia", text: "Malaysia" },
+          { value: "Malediven", text: "Maldives" },
+          { value: "Mali", text: "Mali" },
+          { value: "Malta", text: "Malta" },
+          { value: "Marshallinseln", text: "Marshall Islands" },
+          { value: "Mauretanien", text: "Mauritania" },
+          { value: "Mauritius", text: "Mauritius" },
+          { value: "Mexiko", text: "Mexico" },
+          { value: "Mikronesien", text: "Micronesia" },
+          { value: "Moldawien", text: "Moldova" },
+          { value: "Monaco", text: "Monaco" },
+          { value: "Mongolei", text: "Mongolia" },
+          { value: "Montenegro", text: "Montenegro" },
+          { value: "Marokko", text: "Morocco" },
+          { value: "Mosambik", text: "Mozambique" },
+          { value: "Myanmar", text: "Myanmar" },
+          { value: "Namibia", text: "Namibia" },
+          { value: "Nauru", text: "Nauru" },
+          { value: "Nepal", text: "Nepal" },
+          { value: "Niederlande", text: "Netherlands" },
+          { value: "Neuseeland", text: "New Zealand" },
+          { value: "Nicaragua", text: "Nicaragua" },
+          { value: "Niger", text: "Niger" },
+          { value: "Nigeria", text: "Nigeria" },
+          { value: "Nordkorea", text: "North Korea" },
+          { value: "Norwegen", text: "Norway" },
+          { value: "Oman", text: "Oman" },
+          { value: "Pakistan", text: "Pakistan" },
+          { value: "Palau", text: "Palau" },
+          { value: "Palästina", text: "Palestine" },
+          { value: "Panama", text: "Panama" },
+          { value: "Papua-Neuguinea", text: "Papua New Guinea" },
+          { value: "Paraguay", text: "Paraguay" },
+          { value: "Peru", text: "Peru" },
+          { value: "Philippinen", text: "Philippines" },
+          { value: "Polen", text: "Poland" },
+          { value: "Portugal", text: "Portugal" },
+          { value: "Katar", text: "Qatar" },
+          { value: "Republik Kongo", text: "Republic of the Congo" },
+          { value: "Mazedonien", text: "Republic of Macedonia" },
+          { value: "Rumänien", text: "Romania" },
+          { value: "Russland", text: "Russia" },
+          { value: "Ruanda", text: "Rwanda" },
+          { value: "St. Kitts und Nevis", text: "Saint Kitts and Nevis" },
+          { value: "St. Lucia", text: "Saint Lucia" },
+          {
+            value: "St. Vincent und die Grenadinen",
+            text: "Saint Vincent and the Grenadines",
+          },
+          { value: "Samoa", text: "Samoa" },
+          { value: "San Marino", text: "San Marino" },
+          { value: "São Tomé und Príncipe", text: "Sao Tome and Principe" },
+          { value: "Saudi-Arabien", text: "Saudi Arabia" },
+          { value: "Senegal", text: "Senegal" },
+          { value: "Serbien", text: "Serbia" },
+          { value: "Seychellen", text: "Seychelles" },
+          { value: "Sierra Leone", text: "Sierra Leone" },
+          { value: "Singapur", text: "Singapore" },
+          { value: "Slowakei", text: "Slovakia" },
+          { value: "Slowenien", text: "Slovenia" },
+          { value: "Salomonen", text: "Solomon Islands" },
+          { value: "Somalia", text: "Somalia" },
+          { value: "Südafrika", text: "South Africa" },
+          { value: "Südkorea", text: "South Korea" },
+          { value: "Südsudan", text: "South Sudan" },
+          { value: "Spanien", text: "Spain" },
+          { value: "Sri Lanka", text: "Sri Lanka" },
+          { value: "Sudan", text: "Sudan" },
+          { value: "Suriname", text: "Suriname" },
+          { value: "Swasiland", text: "Swaziland" },
+          { value: "Schweden", text: "Sweden" },
+          { value: "Schweiz", text: "Switzerland" },
+          { value: "Syrien", text: "Syria" },
+          { value: "Taiwan", text: "Taiwan" },
+          { value: "Tadschikistan", text: "Tajikistan" },
+          { value: "Tansania", text: "Tanzania" },
+          { value: "Thailand", text: "Thailand" },
+          { value: "Togo", text: "Togo" },
+          { value: "Tonga", text: "Tonga" },
+          { value: "Trinidad und Tobago", text: "Trinidad and Tobago" },
+          { value: "Tunesien", text: "Tunisia" },
+          { value: "Türkei", text: "Turkey" },
+          { value: "Turkmenistan", text: "Turkmenistan" },
+          { value: "Tuvalu", text: "Tuvalu" },
+          { value: "Uganda", text: "Uganda" },
+          { value: "Ukraine", text: "Ukraine" },
+          {
+            value: "Vereinigte Arabische Emirate",
+            text: "United Arab Emirates",
+          },
+          { value: "Vereinigtes Königreich", text: "United Kingdom" },
+          { value: "Vereinigte Staaten", text: "United States of America" },
+          { value: "Uruguay", text: "Uruguay" },
+          { value: "Usbekistan", text: "Uzbekistan" },
+          { value: "Vanuatu", text: "Vanuatu" },
+          { value: "Venezuela", text: "Venezuela" },
+          { value: "Vietnam", text: "Vietnam" },
+          { value: "Jemen", text: "Yemen" },
+          { value: "Sambia", text: "Zambia" },
+          { value: "Simbabwe", text: "Zimbabwe" },
         ],
         nationality: null,
         nationalities: [],
-        nationalitiesGr: [
-          "Afghane",
-          "Albaner",
-          "Algerier",
-          "Amerikaner",
-          "Andorraner",
-          "Angolaner",
-          "Antiguaner",
-          "Argentinier",
-          "Armenier",
-          "Australier",
-          "Österreicher",
-          "Aserbaidschaner",
-          "Bahamaer",
-          "Bahrainer",
-          "Bangladescher",
-          "Barbadianer",
-          "Weißrusse",
-          "Belgier",
-          "Belizeaner",
-          "Beniner",
-          "Bhutaner",
-          "Bolivianer",
-          "Bosnier",
-          "Brasilianer",
-          "Brite",
-          "Bruneier",
-          "Bulgare",
-          "Burkinabe",
-          "Burundier",
-          "Kambodschaner",
-          "Kameruner",
-          "Kanadier",
-          "Kap-Verdianer",
-          "Zentralafrikaner",
-          "Tschader",
-          "Chilene",
-          "Chinese",
-          "Kolumbianer",
-          "Komorer",
-          "Kongolese",
-          "Costa Ricaner",
-          "Kroate",
-          "Kubaner",
-          "Zyprer",
-          "Tscheche",
-          "Däne",
-          "Dschibutier",
-          "Dominikaner",
-          "Niederländer",
-          "Osttimorese",
-          "Ecuadorianer",
-          "Ägypter",
-          "Emirati",
-          "Äquatorialguineer",
-          "Eritreer",
-          "Este",
-          "Äthiopier",
-          "Fidschianer",
-          "Filipino",
-          "Finne",
-          "Franzose",
-          "Gabuner",
-          "Gambier",
-          "Georgier",
-          "Deutscher",
-          "Ghanaer",
-          "Grieche",
-          "Grenadier",
-          "Guatemalteke",
-          "Guineer",
-          "Guyaner",
-          "Haitianer",
-          "Honduraner",
-          "Ungar",
-          "Isländer",
-          "Inder",
-          "Indonesier",
-          "Iraner",
-          "Iraker",
-          "Ire",
-          "Israeli",
-          "Italiener",
-          "Ivorer",
-          "Jamaikaner",
-          "Japaner",
-          "Jordanier",
-          "Kasache",
-          "Kenianer",
-          "Kittianer und Nevisianer",
-          "Kuwaiti",
-          "Kirgise",
-          "Laote",
-          "Lette",
-          "Libanese",
-          "Liberianer",
-          "Libyer",
-          "Liechtensteiner",
-          "Litauer",
-          "Luxemburger",
-          "Mazedonier",
-          "Madagasse",
-          "Malawier",
-          "Malayer",
-          "Maldivier",
-          "Malier",
-          "Maltese",
-          "Marshallesischer",
-          "Mauretanier",
-          "Mauritianer",
-          "Mexikaner",
-          "Mikronesier",
-          "Moldawier",
-          "Monegasse",
-          "Mongole",
-          "Montenegriner",
-          "Marokkaner",
-          "Mosotho",
-          "Motswana",
-          "Mosambikaner",
-          "Namibier",
-          "Nauruer",
-          "Nepalese",
-          "Neuseeländer",
-          "Nicaraguaner",
-          "Nigerianer",
-          "Nigerier",
-          "Nordkoreaner",
-          "Norweger",
-          "Omaner",
-          "Pakistani",
-          "Palauer",
-          "Panamani",
-          "Papua-Neuguineer",
-          "Paraguayer",
-          "Peruaner",
-          "Pole",
-          "Portugiese",
-          "Katarer",
-          "Rumäne",
-          "Russe",
-          "Ruander",
-          "Saint Lucianer",
-          "Salvadorianer",
-          "Samoaner",
-          "San Marinese",
-          "Sao Tomeaner",
-          "Saudi",
-          "Schotte",
-          "Senegalese",
-          "Serbe",
-          "Seycheller",
-          "Sierra Leoner",
-          "Singapurer",
-          "Slowake",
-          "Slowene",
-          "Salomonen-Insulaner",
-          "Somalier",
-          "Südafrikaner",
-          "Südkoreaner",
-          "Spanier",
-          "Sri Lanker",
-          "Sudanese",
-          "Surinamer",
-          "Swasi",
-          "Schwede",
-          "Schweizer",
-          "Syrer",
-          "Taiwanese",
-          "Tadschike",
-          "Tansanier",
-          "Thailänder",
-          "Togoer",
-          "Tonganer",
-          "Trinidadianer oder Tobagoner",
-          "Tunesier",
-          "Türke",
-          "Turkmenen",
-          "Tuvaluer",
-          "Ugander",
-          "Ukrainer",
-          "Uruguayer",
-          "Usbeke",
-          "Venezolaner",
-          "Vietnamese",
-          "Waliser",
-          "Jemenit",
-          "Sambier",
-          "Simbabwer",
-        ],
         abroadCity: "",
         document: null,
-        documents: ["Passport", "ID document", "Child’s passport"],
+        documents: [
+          { text: "Passport", abbr: "RP" },
+          { text: "ID document", abbr: "PA" },
+          { text: "Child’s passport", abbr: "KP" },
+        ],
         validFrom: "",
         validTo: "",
         co: "",
@@ -1578,22 +1441,13 @@ export default {
         serialNum: "",
         marital: null,
         maritalStatus: [
-          "Married",
-          "Single",
-          "Civil partnership",
-          "Widowed",
-          "Civil partner deceased",
-          "Divorced",
-          "Civil partnership dissolved",
-        ],
-        maritalStatusGr: [
-          "Verheiratet",
-          "Einzel",
-          "Lebenspartnerschaft",
-          "Verwitwet",
-          "Lebenspartner verstorben",
-          "Geschieden",
-          "Lebenspartnerschaft aufgelöst",
+          { abbr: "VH", text: "Married" },
+          { abbr: "LD", text: "Single" },
+          { abbr: "LP", text: "Civil partnership" },
+          { abbr: "VW", text: "Widowed" },
+          { abbr: "LV", text: "Civil partner deceased" },
+          { abbr: "GS", text: "Divorced" },
+          { abbr: "LA", text: "Civil partnership dissolved" },
         ],
         marriedFrom: "",
         marriagePlace: "",
@@ -1776,10 +1630,6 @@ export default {
         this.load = false;
       }
     },
-  },
-  mounted() {
-    this.formData.countries.sort();
-    this.formData.nationalities = this.formData.countries.sort();
   },
 };
 </script>

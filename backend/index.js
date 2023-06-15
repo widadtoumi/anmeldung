@@ -677,17 +677,7 @@ app.post("/generate-pdf", async (req, res) => {
                       border-bottom: 0;">${formData.co}</td>
                   <td style="border-top: 0;
                     border-bottom: 0; border-left: 0;">
-                    ${
-                      formData.moveToGermany !== 2
-                        ? formData.abroadCity +
-                          "," +
-                          formData.nationalitiesGr[
-                            formData.nationalities.indexOf(
-                              formData.abroadCountry
-                            )
-                          ]
-                        : ""
-                    }</td>
+                    ${ formData.moveToGermany !== 2 ? formData.abroadCity + "," + formData.abroadCountry : ""}</td>
                 </tr>
               </tbody>
             </table>
@@ -748,7 +738,7 @@ app.post("/generate-pdf", async (req, res) => {
         <div class="body__snd__section">
           <div class="bs__fst_table">
             <!-- Table: 1 Familienname, ggf. Doktorgrad Passname -->
-            <table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)] ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} ${formData.secondNationality ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.secondNationality)]} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2"></th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>
+            <table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationality ? "," : ""} ${ formData.nationality }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>
           </div>
   
           <div class="bs__third_table">
@@ -765,9 +755,7 @@ app.post("/generate-pdf", async (req, res) => {
                 <tr>
                   <td style="border-right: 0;">
                     ${
-                      formData.maritalStatusGr[
-                        formData.maritalStatus.indexOf(formData.marital)
-                      ]
+                      formData.marital
                     }
                   </td>
                   <td>
@@ -865,7 +853,7 @@ app.post("/generate-pdf", async (req, res) => {
   </body>
   
   </html>`;
-  
+
   let pageContent;
   
   if (formData.people.length > 0) {
@@ -873,7 +861,7 @@ app.post("/generate-pdf", async (req, res) => {
     pageContent = formData.people.map((people, index) => {
         if (index == 0) {
           return htmlTemplate.replace(
-            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2"></th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
+            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
             `<table class="table-container">
               <thead>
                 <tr>
@@ -916,17 +904,11 @@ app.post("/generate-pdf", async (req, res) => {
                   ${people.birthDate} ${people.birthPlace ? "," : ""} 
                   ${people.birthPlace}
                   ${
-                    formData.nationalitiesGr[
-                      formData.nationalities.indexOf(people.nationality)
-                    ]
+                    people.nationality
                       ? ","
                       : ""
                   } 
-                  ${
-                    formData.nationalitiesGr[
-                      formData.nationalities.indexOf(people.nationality)
-                    ]
-                  }
+                  ${people.nationality}
                   </td>
                 </tr>
                 <tr>
@@ -941,15 +923,12 @@ app.post("/generate-pdf", async (req, res) => {
                   </td>
                   <td style="border-bottom: 0;">
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.nationality)
-                      ]
+                      people.nationality
+                      
                     } 
                     ${formData.secondNationality ? "," : ""} 
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.secondNationality)
-                      ]
+                      people.secondNationality
                     }
                   </td>
                 </tr>
@@ -966,7 +945,7 @@ app.post("/generate-pdf", async (req, res) => {
         } else if (index < formData.people.length && index % 2 !== 0){
           if (index == formData.people.length - 1) {
             return htmlTemplate.replace(
-              `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)] ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} ${formData.secondNationality ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.secondNationality)]} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2"></th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
+              `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.birthDate} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationality ? "," : ""} ${formData.nationality}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${formData.nationality} ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
             `<table class="table-container">
                 <thead>
                   <tr>
@@ -1009,16 +988,11 @@ app.post("/generate-pdf", async (req, res) => {
                     ${people.birthDate} ${people.birthPlace ? "," : ""} 
                     ${people.birthPlace}
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.nationality)
-                      ]
-                        ? ","
+                      people.nationality ? ","
                         : ""
                     } 
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.nationality)
-                      ]
+                      people.nationality
                     }
                     </td>
                   </tr>
@@ -1034,15 +1008,11 @@ app.post("/generate-pdf", async (req, res) => {
                     </td>
                     <td style="border-bottom: 0;">
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(people.nationality)
-                        ]
+                        people.nationality
                       } 
                       ${formData.secondNationality ? "," : ""} 
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(people.secondNationality)
-                        ]
+                        people.secondNationality
                       }
                     </td>
                   </tr>
@@ -1122,7 +1092,7 @@ app.post("/generate-pdf", async (req, res) => {
           } 
           // Perform something with odd-indexed elements
           return htmlTemplate.replace(
-            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)] ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${formData.nationalitiesGr[formData.nationalities.indexOf(formData.nationality)]} ${formData.secondNationality ? "," : ""} ${formData.nationalitiesGr[formData.nationalities.indexOf(formData.secondNationality)]} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2"></th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
+            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;">${formData.birthDate} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.nationality ? "," : ""} ${formData.nationality}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;">${formData.nationality} ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td>${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
             `<table class="table-container">
                 <thead>
                   <tr>
@@ -1165,16 +1135,12 @@ app.post("/generate-pdf", async (req, res) => {
                     ${people.birthDate} ${people.birthPlace ? "," : ""} 
                     ${people.birthPlace}
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.nationality)
-                      ]
+                      people.nationality
                         ? ","
                         : ""
                     } 
                     ${
-                      formData.nationalitiesGr[
-                        formData.nationalities.indexOf(people.nationality)
-                      ]
+                      people.nationality
                     }
                     </td>
                   </tr>
@@ -1190,15 +1156,11 @@ app.post("/generate-pdf", async (req, res) => {
                     </td>
                     <td style="border-bottom: 0;">
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(people.nationality)
-                        ]
+                        people.nationality
                       } 
                       ${formData.secondNationality ? "," : ""} 
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(people.secondNationality)
-                        ]
+                        people.secondNationality
                       }
                     </td>
                   </tr>
@@ -1253,16 +1215,12 @@ app.post("/generate-pdf", async (req, res) => {
                       ${formData.people[index + 1].birthDate} ${formData.people[index + 1].birthPlace ? "," : ""} 
                       ${formData.people[index + 1].birthPlace}
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(formData.people[index + 1].nationality)
-                        ]
+                        formData.people[index + 1].nationality
                           ? ","
                           : ""
                       } 
                       ${
-                        formData.nationalitiesGr[
-                          formData.nationalities.indexOf(formData.people[index + 1].nationality)
-                        ]
+                        formData.people[index + 1].nationality
                       }
                       </td>
                     </tr>
@@ -1278,15 +1236,11 @@ app.post("/generate-pdf", async (req, res) => {
                       </td>
                       <td style="border-bottom: 0;">
                         ${
-                          formData.nationalitiesGr[
-                            formData.nationalities.indexOf(formData.people[index + 1].nationality)
-                          ]
+                          formData.people[index + 1].nationality
                         } 
                         ${formData.secondNationality ? "," : ""} 
                         ${
-                          formData.nationalitiesGr[
-                            formData.nationalities.indexOf(formData.people[index + 1].secondNationality)
-                          ]
+                          formData.people[index + 1].secondNationality
                         }
                       </td>
                     </tr>
