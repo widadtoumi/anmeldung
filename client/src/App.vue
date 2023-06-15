@@ -2,7 +2,7 @@
   <v-app>
     <v-main class="form">
       <div class="top-bar">
-        <img src="@/assets/sb-logo.svg" alt="" class="logo" srcset="" />
+        <img src="@/assets/logo.svg" alt="" class="logo" srcset="" />
       </div>
       <v-container>
         <div class="about-section">
