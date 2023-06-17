@@ -1256,7 +1256,7 @@ app.post("/generate-pdf", async (req, res) => {
             `
           );
         } 
-    }).join('<div></div>');
+    }).join('<div style="display: none;"></div>');
   } else {
     pageContent = htmlTemplate;
   }
