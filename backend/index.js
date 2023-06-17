@@ -593,7 +593,7 @@ app.post("/generate-pdf", async (req, res) => {
                   <table class="table-container">
                     <thead class="date__zip__table">
                       <tr>
-                        <th style="border-right: 0px; border-left: 0px">Tag des Einzugs</th>
+                        <th style="border-right: 0px; border-left: 0px">Tag des Auszugs</th>
                         <th style="border-right: 0px;">Postleitzahl, Gemeinde, Ortsteil</th>
                       </tr>
                     </thead>

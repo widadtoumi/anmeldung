@@ -340,7 +340,7 @@
                   </validation-provider>
                 </div>
                 <div
-                  v-if="formData.marital == 'Married'"
+                  v-if="formData.marital == 'VH'"
                   class="opf-content__marital-cac"
                 >
                   <div class="opf-content">
