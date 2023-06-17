@@ -40,12 +40,24 @@ body {
           font-weight: 700;
           text-align: center;
           color: #333;
+          @media (max-width: 560px) {
+            padding: 0 20px;
+          }
+          @media (max-width: 400px) {
+            padding: 0 10px;
+          }
         }
         .about-description {
           max-width: 523px;
           margin: 40px auto;
           font-size: 1rem;
           font-family: "Merriweather", serif;
+          @media (max-width: 560px) {
+            padding: 70px 50px;
+          }
+          @media (max-width: 400px) {
+            padding: 70px 30px;
+          }
         }
       }
       .form-card {
