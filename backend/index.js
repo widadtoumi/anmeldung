@@ -820,7 +820,7 @@ app.post("/generate-pdf", async (req, res) => {
             <tbody>
               <tr>
                 <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td>
-                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0].placeName ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td>
+                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td>
                 <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td>
                 <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td>
                 <td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td>
