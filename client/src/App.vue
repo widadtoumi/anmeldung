@@ -1597,6 +1597,7 @@ export default {
         secondNationality: "",
         document: "",
         authorityName: "",
+        placeName: "",
         serialNum: "",
         validFrom: "",
         validTo: "",
