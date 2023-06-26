@@ -583,7 +583,7 @@ app.post("/generate-pdf", async (req, res) => {
                         <td style="border: 0px; font-size:small;" >${formData.moved}</td>
                         <td style="border: 0px; border-left: 1px solid; font-size:small;">${
                           formData.postCode
-                        }</td>
+                        } ${formData.city}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -594,7 +594,7 @@ app.post("/generate-pdf", async (req, res) => {
                     <thead class="date__zip__table">
                       <tr>
                         <th style="border-right: 0px; border-left: 0px">Tag des Auszugs</th>
-                        <th style="border-right: 0px;">Postleitzahl, Gemeinde, Ortsteil</th>
+                        <th style="border-right: 0px;">Postleitzahl, Gemeinde/Kreis/Land</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -602,7 +602,7 @@ app.post("/generate-pdf", async (req, res) => {
                         <td style="border: 0px; font-size:small;">${formData.movedOut}</td>
                         <td style="border: 0px; border-left: 1px solid; font-size:small;">${
                           formData.prevPostCode
-                        }</td>
+                        } ${formData.prevCity}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -667,7 +667,7 @@ app.post("/generate-pdf", async (req, res) => {
               <tbody>
                 <tr>
                   <td style="border-top: 0;
-                      border-bottom: 0;font-size: small;">${formData.co}</td>
+                      border-bottom: 0;font-size: small;">bei ${formData.co}</td>
                   <td style="border-top: 0;
                     border-bottom: 0; border-left: 0; font-size: small;">
                     ${ formData.moveToGermany !== 2 ? formData.abroadCity + "," + formData.abroadCountry : ""}</td>
