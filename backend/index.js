@@ -533,14 +533,14 @@ app.post("/generate-pdf", async (req, res) => {
                         value="${formData.apartmentNum}" ${
     formData.apartmentNum === 2 ? "checked" : ""
   }>
-                      <label for="main">Haupt-wohnung</label>
+                      <label for="main">Haupt wohnung</label>
                     </div>
                     <div class="bfsc__checkbox">
                       <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
                         value="${formData.apartmentNum}" ${
     formData.apartmentNum === 3 ? "checked" : ""
   }>
-                      <label for="secondary">Neben-wohnung</label>
+                      <label for="secondary">Neben wohnung</label>
                     </div>
                   </div>
                   <div class="divider"></div>
@@ -558,14 +558,14 @@ app.post("/generate-pdf", async (req, res) => {
                         value="${formData.keepingPrvAprt}" ${
     formData.keepingPrvAprt === 2 ? "checked" : ""
   }>
-                      <label for="main">Haupt-wohnung</label>
+                      <label for="main">Haupt wohnung</label>
                     </div>
                     <div class="bfsc__checkbox">
                       <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
                         value="secondary" value="${formData.keepingPrvAprt}" ${
     formData.keepingPrvAprt === 3 ? "checked" : ""
   }>
-                      <label for="secondary">Neben-wohnung</label>
+                      <label for="secondary">Neben wohnung</label>
                     </div>
                   </div>
                 </div>
@@ -599,10 +599,10 @@ app.post("/generate-pdf", async (req, res) => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td style="border: 0px; font-size:small;">${formData.movedOut}</td>
+                        <td style="border: 0px; font-size:small;">${formData.movedOut ? formData.movedOut : '' }</td>
                         <td style="border: 0px; border-left: 1px solid; font-size:small;">${
-                          formData.prevPostCode
-                        } ${formData.prevCity}</td>
+                          formData.prevPostCode ? formData.prevPostCode : ''
+                        } ${formData.prevCity ? formData.prevCity : ''}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -618,7 +618,7 @@ app.post("/generate-pdf", async (req, res) => {
                     <tbody>
                       <tr>
                         <td style="border: 0px; font-size:small;">
-                        ${formData.address} ${formData.floor ? "," : ""} ${formData.floor}. OG, ${
+                        ${formData.address}, ${formData.floor}. OG, ${
                           formData.doorSides[formData.doorSide - 1].abr
                         }
                         </td>
@@ -638,13 +638,7 @@ app.post("/generate-pdf", async (req, res) => {
                         <td style="border: 0px; font-size: small;">
                         ${
                           formData.moveToGermany === 2
-                            ? formData.prevAddress +
-                              `${formData.prevFloor ? "," : ""}` +
-                              `${
-                                formData.prevFloor
-                                  ? formData.prevFloor + ". OG"
-                                  : ""
-                              }`
+                            ? formData.prevAddress 
                             : ""
                         } 
                         </td>
@@ -692,14 +686,14 @@ app.post("/generate-pdf", async (req, res) => {
                     value="${formData.previousApart}" ${
     formData.previousApart === 2 ? "checked" : ""
   }>
-                  <label for="main">Haupt-wohnung</label>
+                  <label for="main">Haupt wohnung</label>
                 </div>
                 <div class="bfsc__row__checkbox">
                   <input type="checkbox" style="accent-color: black;" id="secondary" name="secondary"
                     value="${formData.previousApart}" ${
     formData.previousApart === 3 ? "checked" : ""
   }>
-                  <label for="secondary">Neben-wohnung</label>
+                  <label for="secondary">Neben wohnung</label>
                 </div>
               </div>
               <div class="bfsc__row" style="border-top: 0;">
@@ -719,7 +713,7 @@ app.post("/generate-pdf", async (req, res) => {
                   <input type="checkbox" style="accent-color: black;" id="yes" name="yes" value="${
                     formData.havApart
                   }" ${formData.havApart === 2 ? "checked" : ""}>
-                  <label for="main">Haupt-wohnung</label>
+                  <label for="main">Haupt wohnung</label>
                 </div>
                 <div class="bfsc__row__note">
                   Wenn ja, siehe Beiblatt!
@@ -731,103 +725,7 @@ app.post("/generate-pdf", async (req, res) => {
         <div class="body__snd__section">
           <div class="bs__fst_table">
             <!-- Table: 1 Familienname, ggf. Doktorgrad Passname -->
-            <table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>
-          </div>
-  
-          <div class="bs__third_table">
-            <!-- Table: Familienstand (1oder 1 und 2) -->
-            <table class="table-container">
-              <thead>
-                <tr>
-                  <th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th>
-                  <th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,
-                    Land AZ)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="border-right: 0; font-size: small;">
-                    ${
-                      formData.marital
-                    }
-                  </td>
-                  <td style="font-size: small;">
-                    ${formData.marriedFrom} ${
-    formData.marriagePlace ? "," : ""
-  } 
-                    ${formData.marriagePlace} ${
-    formData.marriageCountry ? "," : ""
-  }
-                    ${formData.marriageCountry}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="body__thr__section table-container">
-          <!-- Table: Dokumente -->
-          <table class="bt__fst_table">
-            <thead>
-              <tr>
-                <th style="border-bottom: 0;" colspan="5">
-                  <div class="document__title">Dokumente:</div>
-                  <div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP =
-                    Kinderreisepass</div>
-                </th>
-              </tr>
-              <tr>
-                <th style="border-bottom: 0;" colspan="5">
-                  <div class="document__fullname">Name, Vorname: ${
-                    formData.firstName
-                  }</div>
-                </th>
-              </tr>
-              <tr>
-                <th style="border-bottom: 0;border-right: 0;">Art</th>
-                <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
-                <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
-                <th style="border-bottom: 0;border-right: 0;">Datum</th>
-                <th style="border-bottom: 0;">gültig bis</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="border-right: 0; font-size: small;">${formData.document}</td>
-                <td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td>
-                <td style="border-right: 0; font-size: small;">${formData.serialNum}</td>
-                <td style="border-right: 0; font-size: small;">${formData.validFrom}</td>
-                <td style="font-size: small;">${formData.validTo}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="table-divider"></div>
-          <table class="bt__snd_table">
-            <thead>
-              <tr>
-                <th colspan="5">
-                  <div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div>
-                </th>
-              </tr>
-              <tr>
-                <th style="border-bottom: 0;border-right: 0;">Art</th>
-                <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
-                <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
-                <th style="border-bottom: 0;border-right: 0;">Datum</th>
-                <th style="border-bottom: 0;">gültig bis</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td>
-                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td>
-                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td>
-                <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td>
-                <td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            <table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table></div><div class="bs__third_table"><table class="table-container"><thead><tr><th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th><th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.marital}</td><td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""} ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td></tr></tbody></table></div></div><div class="body__thr__section table-container"><table class="bt__fst_table"><thead><tr><th style="border-bottom: 0;" colspan="5"><div class="document__title">Dokumente:</div><div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass</div></th></tr><tr><th style="border-bottom: 0;" colspan="5"><div class="document__fullname">Name, Vorname: ${formData.firstName}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.document}</td><td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td><td style="border-right: 0; font-size: small;">${formData.serialNum}</td><td style="border-right: 0; font-size: small;">${formData.validFrom}</td><td style="font-size: small;">${formData.validTo}</td></tr></tbody></table><div class="table-divider"></div><table class="bt__snd_table"><thead><tr><th colspan="5"><div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td><td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td></tr></tbody></table></div>
         <div class="body__signature_section table-container">
           <div class="bss__header">Datum, Unterschrift eines/einer der Meldepflichtigen oder einer Person mit
             Betreuungsvollmacht</div>
@@ -854,46 +752,380 @@ app.post("/generate-pdf", async (req, res) => {
     pageContent = formData.people.map((people, index) => {
         if (index == 0) {
           return htmlTemplate.replace(
-            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
+            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table></div><div class="bs__third_table"><table class="table-container"><thead><tr><th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th><th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.marital}</td><td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""} ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td></tr></tbody></table></div></div><div class="body__thr__section table-container"><table class="bt__fst_table"><thead><tr><th style="border-bottom: 0;" colspan="5"><div class="document__title">Dokumente:</div><div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass</div></th></tr><tr><th style="border-bottom: 0;" colspan="5"><div class="document__fullname">Name, Vorname: ${formData.firstName}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.document}</td><td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td><td style="border-right: 0; font-size: small;">${formData.serialNum}</td><td style="border-right: 0; font-size: small;">${formData.validFrom}</td><td style="font-size: small;">${formData.validTo}</td></tr></tbody></table><div class="table-divider"></div><table class="bt__snd_table"><thead><tr><th colspan="5"><div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td><td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td></tr></tbody></table></div>`,
             `<table class="table-container">
+            <thead>
+              <tr>
+                <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
+                  index + 2
+                }</th>
+                <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
+                  ggf. Doktorgrad Passname</th>
+                <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
+                  <div class="bsft__fht_famist">Familienmitglied ist:</div>
+                  <div class="bsft__fht" style="font-size: small;">${people.LastName}</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">
+                  Vornamen
+                  (Rufnamen unterstreichen)
+                </td>
+                <td style="border-bottom: 0; font-size: small;">${people.FirstName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">
+                  Geburtsname
+                </td>
+                <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0;  border-right: 0;" colspan="2">
+                  Geschlecht
+                </td>
+                <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">
+                  Tag, Ort, Land der Geburt
+                </td>
+                <td style="border-bottom: 0; font-size: small;">
+                ${people.birthDate} ${people.birthPlace ? "," : ""} 
+                ${people.birthPlace}
+                ${
+                  people.birthCountry
+                    ? ","
+                    : ""
+                } 
+                ${people.birthCountry}
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">
+                  Religionsgesellschaft
+                </td>
+                <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">
+                  Staatsangehörigkeiten
+                </td>
+                <td style="border-bottom: 0; font-size: small;">
+                  ${
+                    people.nationality
+                    
+                  } 
+                  ${formData.secondNationality ? "," : ""} 
+                  ${
+                    people.secondNationality
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td style="border-right: 0;" colspan="2">
+                  Ordens- Künstlername
+                </td>
+                <td style="font-size: small;">${people.stageName}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="bs__third_table">
+            <table class="table-container">
               <thead>
                 <tr>
-                  <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
-                    index + 2
-                  }</th>
-                  <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
-                    ggf. Doktorgrad Passname</th>
-                  <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
-                    <div class="bsft__fht_famist">Familienmitglied ist:</div>
-                    <div class="bsft__fht" style="font-size: small;">${people.LastName}</div>
+                  <th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th>
+                  <th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                    Vornamen
-                    (Rufnamen unterstreichen)
-                  </td>
-                  <td style="border-bottom: 0; font-size: small;">${people.FirstName}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.marital}</td>
+                  <td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""}
+                    ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+          <div class="body__thr__section table-container">
+            <table class="bt__fst_table">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__title">Dokumente:</div>
+                    <div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass
+                    </div>
+                  </th>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                    Geburtsname
-                  </td>
-                  <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__fullname">Name, Vorname: ${formData.firstName}</div>
+                  </th>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 0;  border-right: 0;" colspan="2">
-                    Geschlecht
-                  </td>
-                  <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${formData.document}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.serialNum}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.validFrom}</td>
+                  <td style="font-size: small;">${formData.validTo}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-divider"></div>
+            <table class="bt__snd_table">
+              <thead>
+                <tr>
+                  <th colspan="5">
+                    <div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div>
+                  </th>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                    Tag, Ort, Land der Geburt
-                  </td>
-                  <td style="border-bottom: 0; font-size: small;">
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''}
+                    ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td>
+                  <td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            `
+            );
+        } else if (index < formData.people.length && index % 2 !== 0){
+          if (index == formData.people.length - 1) {
+            return htmlTemplate.replace(
+              `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table></div><div class="bs__third_table"><table class="table-container"><thead><tr><th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th><th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.marital}</td><td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""} ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td></tr></tbody></table></div></div><div class="body__thr__section table-container"><table class="bt__fst_table"><thead><tr><th style="border-bottom: 0;" colspan="5"><div class="document__title">Dokumente:</div><div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass</div></th></tr><tr><th style="border-bottom: 0;" colspan="5"><div class="document__fullname">Name, Vorname: ${formData.firstName}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.document}</td><td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td><td style="border-right: 0; font-size: small;">${formData.serialNum}</td><td style="border-right: 0; font-size: small;">${formData.validFrom}</td><td style="font-size: small;">${formData.validTo}</td></tr></tbody></table><div class="table-divider"></div><table class="bt__snd_table"><thead><tr><th colspan="5"><div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td><td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td></tr></tbody></table></div>`,
+            `<table class="table-container">
+            <thead>
+              <tr>
+                <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">${ index + 2 }</th>
+                <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad
+                  Passname</th>
+                <th style="border-bottom: 0; font-size: small;">${people.LastName}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td>
+                <td style="border-bottom: 0;font-size: small;">${people.FirstName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td>
+                <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td>
+                <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td>
+                <td style="border-bottom: 0; font-size: small;">
+                  ${people.birthDate} ${people.birthPlace ? "," : ""} 
+                  ${people.birthPlace}
+                  ${ people.birthCountry ? "," : "" } 
+                  ${ people.birthCountry }
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td>
+                <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td>
+                <td style="border-bottom: 0; font-size: small;">
+                  ${
+                    people.nationality
+                  } 
+                  ${formData.secondNationality ? "," : ""} 
+                  ${
+                    people.secondNationality
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td style="border-right: 0;" colspan="2">Ordens- Künstlername</td>
+                <td style="font-size: small;">${people.stageName}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="bs__snd_table">
+            <table class="table-container">
+              <thead>
+                <tr>
+                  <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${ index + 3 }</th>
+                  <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf.
+                    Doktorgrad Passname</th>
+                  <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
+                    <div class="bsft__fht_famist">Familienmitglied ist:</div>
+                    <div class="bsft__fht"></div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td>
+                  <td style="border-bottom: 0;"></td>
+                </tr>
+                <tr>
+                  <td style="border-right: 0;" colspan="2">Ordens- Künstlername</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bs__third_table">
+            <table class="table-container">
+              <thead>
+                <tr>
+                  <th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th>
+                  <th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${formData.marital}</td>
+                  <td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""}
+                    ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+          <div class="body__thr__section table-container">
+            <table class="bt__fst_table">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__title">Dokumente:</div>
+                    <div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__fullname">Name, Vorname: ${people.FirstName}</div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${people.document}</td>
+                  <td style="border-right: 0; font-size: small;">${people.authorityName}, ${people.placeName}</td>
+                  <td style="border-right: 0; font-size: small;">${people.serialNum}</td>
+                  <td style="border-right: 0; font-size: small;">${people.validFrom}</td>
+                  <td style="font-size: small;">${people.validTo}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-divider"></div>
+            <table class="bt__snd_table">
+              <thead>
+                <tr>
+                  <th colspan="5">
+                    <div class="document__fullname">Name, Vorname: </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;"></td>
+                  <td style="border-right: 0; font-size: small;"></td>
+                  <td style="border-right: 0; font-size: small;"></td>
+                  <td style="border-right: 0; font-size: small;"></td>
+                  <td style="font-size: small;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>`
+          );
+          } 
+          // Perform something with odd-indexed elements
+          return htmlTemplate.replace(
+            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table></div><div class="bs__third_table"><table class="table-container"><thead><tr><th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th><th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.marital}</td><td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""} ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td></tr></tbody></table></div></div><div class="body__thr__section table-container"><table class="bt__fst_table"><thead><tr><th style="border-bottom: 0;" colspan="5"><div class="document__title">Dokumente:</div><div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass</div></th></tr><tr><th style="border-bottom: 0;" colspan="5"><div class="document__fullname">Name, Vorname: ${formData.firstName}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.document}</td><td style="border-right: 0; font-size: small;">${formData.authorityName}, ${formData.placeName}</td><td style="border-right: 0; font-size: small;">${formData.serialNum}</td><td style="border-right: 0; font-size: small;">${formData.validFrom}</td><td style="font-size: small;">${formData.validTo}</td></tr></tbody></table><div class="table-divider"></div><table class="bt__snd_table"><thead><tr><th colspan="5"><div class="document__fullname">Name, Vorname: ${formData.people[0] ? formData.people[0].FirstName : ''}</div></th></tr><tr><th style="border-bottom: 0;border-right: 0;">Art</th><th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th><th style="border-bottom: 0;border-right: 0;">Seriennummer</th><th style="border-bottom: 0;border-right: 0;">Datum</th><th style="border-bottom: 0;">gültig bis</th></tr></thead><tbody><tr><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].document : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].authorityName : ''} ${formData.people[0] ? ',' : ''} ${formData.people[0] ? formData.people[0].placeName : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].serialNum : ''}</td><td style="border-right: 0; font-size: small;">${formData.people[0] ? formData.people[0].validFrom : ''}</td><td style="font-size: small;">${formData.people[0] ? formData.people[0].validTo : ''}</td></tr></tbody></table></div>`,
+            `<table class="table-container">
+            <thead>
+              <tr>
+                <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">${ index + 2 }</th>
+                <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad
+                  Passname</th>
+                <th style="border-bottom: 0; font-size: small;">${people.LastName}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td>
+                <td style="border-bottom: 0;font-size: small;">${people.FirstName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td>
+                <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td>
+                <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td>
+                <td style="border-bottom: 0; font-size: small;">
                   ${people.birthDate} ${people.birthPlace ? "," : ""} 
                   ${people.birthPlace}
                   ${
@@ -901,350 +1133,180 @@ app.post("/generate-pdf", async (req, res) => {
                       ? ","
                       : ""
                   } 
-                  ${people.birthCountry}
-                  </td>
+                  ${
+                    people.birthCountry
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td>
+                <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td>
+                <td style="border-bottom: 0; font-size: small;">
+                  ${
+                    people.nationality
+                  } 
+                  ${formData.secondNationality ? "," : ""} 
+                  ${
+                    people.secondNationality
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td style="border-right: 0;" colspan="2">Ordens- Künstlername</td>
+                <td style="font-size: small;">${people.stageName}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="bs__snd_table">
+            <table class="table-container">
+              <thead>
+                <tr>
+                  <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">
+                    ${ index + 3 }
+                  </th>
+                  <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf.
+                    Doktorgrad Passname</th>
+                  <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
+                    <div class="bsft__fht_famist">Familienmitglied ist:</div>
+                    <div class="bsft__fht" style="font-size: small;">${formData.people[index + 1].LastName}</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td>
+                  <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].FirstName}</td>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                    Religionsgesellschaft
-                  </td>
-                  <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td>
+                  <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].MaidenName}</td>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                    Staatsangehörigkeiten
-                  </td>
+                  <td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td>
+                  <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].Gender}</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td>
                   <td style="border-bottom: 0; font-size: small;">
+                    ${formData.people[index + 1].birthDate} ${formData.people[index + 1].birthPlace ? "," : ""} 
+                    ${formData.people[index + 1].birthPlace}
                     ${
-                      people.nationality
-                      
-                    } 
-                    ${formData.secondNationality ? "," : ""} 
-                    ${
-                      people.secondNationality
-                    }
-                  </td>
-                </tr>
-                <tr>
-                  <td style="border-right: 0;" colspan="2">
-                    Ordens- Künstlername
-                  </td>
-                  <td style="font-size: small;">${people.stageName}</td>
-                </tr>
-              </tbody>
-            </table>
-            `
-            );
-        } else if (index < formData.people.length && index % 2 !== 0){
-          if (index == formData.people.length - 1) {
-            return htmlTemplate.replace(
-              `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
-            `<table class="table-container">
-                <thead>
-                  <tr>
-                    <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
-                      index + 2
-                    }</th>
-                    <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
-                      ggf. Doktorgrad Passname</th>
-                    <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
-                      <div class="bsft__fht" style="font-size: small;">${people.LastName}</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Vornamen
-                      (Rufnamen unterstreichen)
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.FirstName}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Geburtsname
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0;  border-right: 0;" colspan="2">
-                      Geschlecht
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Tag, Ort, Land der Geburt
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">
-                    ${people.birthDate} ${people.birthPlace ? "," : ""} 
-                    ${people.birthPlace}
-                    ${
-                      people.birthCountry ? ","
-                        : ""
-                    } 
-                    ${
-                      people.birthCountry
-                    }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Religionsgesellschaft
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Staatsangehörigkeiten
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">
-                      ${
-                        people.nationality
-                      } 
-                      ${formData.secondNationality ? "," : ""} 
-                      ${
-                        people.secondNationality
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="border-right: 0;" colspan="2">
-                      Ordens- Künstlername
-                    </td>
-                    <td style="font-size: small;">${people.stageName}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="bs__snd_table">
-                <table class="table-container">
-                  <thead>
-                    <tr>
-                      <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
-                        index + 3
-                      }</th>
-                      <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
-                        ggf. Doktorgrad Passname</th>
-                      <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
-                        <div class="bsft__fht_famist">Familienmitglied ist:</div>
-                        <div class="bsft__fht"></div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Vornamen
-                        (Rufnamen unterstreichen)
-                      </td>
-                      <td style="border-bottom: 0;"></td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Geburtsname
-                      </td>
-                      <td style="border-bottom: 0;"></td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0;  border-right: 0;" colspan="2">
-                        Geschlecht
-                      </td>
-                      <td style="border-bottom: 0;"></td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Tag, Ort, Land der Geburt
-                      </td>
-                      <td style="border-bottom: 0;">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Religionsgesellschaft
-                      </td>
-                      <td style="border-bottom: 0;"></td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Staatsangehörigkeiten
-                      </td>
-                      <td style="border-bottom: 0;">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="border-right: 0;" colspan="2">
-                        Ordens- Künstlername
-                      </td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            `);
-          } 
-          // Perform something with odd-indexed elements
-          return htmlTemplate.replace(
-            `<table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;">1</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;">Familienname, ggf. Doktorgrad Passname</th><th style="border-bottom: 0; font-size: small;">${formData.lastName}</th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;font-size: small;">${formData.firstName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0; font-size: small;">${formData.maidenName}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0; font-size: small;">${formData.gender}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0; font-size: small;">${formData.date} ${formData.birthPlace ? "," : ""} ${formData.birthPlace} ${formData.birthCountry ? "," : ""} ${ formData.birthCountry }</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0; font-size: small;">${formData.religion}</td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0; font-size: small;">${ formData.nationality } ${formData.secondNationality ? "," : ""} ${formData.secondNationality} </td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td style="font-size: small;">${formData.stageName}</td></tr></tbody></table></div><div class="bs__snd_table"><table class="table-container"><thead><tr><th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">2</th><th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname, ggf. Doktorgrad Passname</th><th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5"><div class="bsft__fht_famist">Familienmitglied ist:</div><div class="bsft__fht"></div></th></tr></thead><tbody><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Vornamen (Rufnamen unterstreichen)</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Geburtsname</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0;  border-right: 0;" colspan="2">Geschlecht</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Tag, Ort, Land der Geburt</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td><td style="border-bottom: 0;"></td></tr><tr><td style="border-right: 0;" colspan="2">Ordens- Künstlername</td><td></td></tr></tbody></table>`,
-            `<table class="table-container">
-                <thead>
-                  <tr>
-                    <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
-                      index + 2
-                    }</th>
-                    <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
-                      ggf. Doktorgrad Passname</th>
-                    <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
-                      <div class="bsft__fht" style="font-size: small;">${people.LastName}</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Vornamen
-                      (Rufnamen unterstreichen)
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.FirstName}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Geburtsname
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.MaidenName}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0;  border-right: 0;" colspan="2">
-                      Geschlecht
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.Gender}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Tag, Ort, Land der Geburt
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">
-                    ${people.birthDate} ${people.birthPlace ? "," : ""} 
-                    ${people.birthPlace}
-                    ${
-                      people.birthCountry
+                      formData.people[index + 1].nationality
                         ? ","
                         : ""
                     } 
                     ${
-                      people.birthCountry
+                      formData.people[index + 1].nationality
                     }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Religionsgesellschaft
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">${people.Religion}</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                      Staatsangehörigkeiten
-                    </td>
-                    <td style="border-bottom: 0; font-size: small;">
-                      ${
-                        people.nationality
-                      } 
-                      ${formData.secondNationality ? "," : ""} 
-                      ${
-                        people.secondNationality
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="border-right: 0;" colspan="2">
-                      Ordens- Künstlername
-                    </td>
-                    <td style="font-size: small;">${people.stageName}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="bs__snd_table">
-                <table class="table-container">
-                  <thead>
-                    <tr>
-                      <th class="bsft__fam-header-num" style="border-bottom: 0; border-right: 0;" rowspan="2">${
-                        index + 3
-                      }</th>
-                      <th class="bsft__fam-header-title" style="border-bottom: 0; border-right: 0;" rowspan="2">Familienname,
-                        ggf. Doktorgrad Passname</th>
-                      <th class="bsft__fht_famist__wrap" style="border-bottom: 0;" rowspan="1.5">
-                        <div class="bsft__fht_famist">Familienmitglied ist:</div>
-                        <div class="bsft__fht" style="font-size: small;">${formData.people[index + 1].LastName}</div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Vornamen
-                        (Rufnamen unterstreichen)
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].FirstName}</td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Geburtsname
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].MaidenName}</td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0;  border-right: 0;" colspan="2">
-                        Geschlecht
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].Gender}</td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Tag, Ort, Land der Geburt
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">
-                      ${formData.people[index + 1].birthDate} ${formData.people[index + 1].birthPlace ? "," : ""} 
-                      ${formData.people[index + 1].birthPlace}
-                      ${
-                        formData.people[index + 1].nationality
-                          ? ","
-                          : ""
-                      } 
-                      ${
-                        formData.people[index + 1].nationality
-                      }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Religionsgesellschaft
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].Religion}</td>
-                    </tr>
-                    <tr>
-                      <td style="border-bottom: 0; border-right: 0;" colspan="2">
-                        Staatsangehörigkeiten
-                      </td>
-                      <td style="border-bottom: 0; font-size: small;">
-                        ${
-                          formData.people[index + 1].nationality
-                        } 
-                        ${formData.secondNationality ? "," : ""} 
-                        ${
-                          formData.people[index + 1].secondNationality
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="border-right: 0;" colspan="2">
-                        Ordens- Künstlername
-                      </td>
-                      <td style="font-size: small;">${formData.people[index + 1].stageName}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            `
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Religionsgesellschaft</td>
+                  <td style="border-bottom: 0; font-size: small;">${formData.people[index + 1].Religion}</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 0; border-right: 0;" colspan="2">Staatsangehörigkeiten</td>
+                  <td style="border-bottom: 0; font-size: small;">
+                    ${
+                      formData.people[index + 1].nationality
+                    } 
+                    ${formData.secondNationality ? "," : ""} 
+                    ${
+                      formData.people[index + 1].secondNationality
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-right: 0;" colspan="2">Ordens- Künstlername</td>
+                  <td style="font-size: small;">${formData.people[index + 1].stageName}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bs__third_table">
+            <table class="table-container">
+              <thead>
+                <tr>
+                  <th style="border-right: 0; border-bottom: 0;">Familienstand (1oder 1 und 2)</th>
+                  <th style="border-bottom: 0; width: 78.3%">Angaben zur Eheschließung / Lebenspartnerschaft (Datum, Ort,Land AZ)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${formData.marital}</td>
+                  <td style="font-size: small;">${formData.marriedFrom} ${formData.marriagePlace ? "," : ""}
+                    ${formData.marriagePlace} ${formData.marriageCountry ? "," : ""}${formData.marriageCountry}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+          <div class="body__thr__section table-container">
+            <table class="bt__fst_table">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__title">Dokumente:</div>
+                    <div class="document__subtitle">Dokumentenarten: PA = Personalausweise, RP = Reisepässe, KP = Kinderreisepass
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;" colspan="5">
+                    <div class="document__fullname">Name, Vorname: ${people.FirstName}</div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${people.document}</td>
+                  <td style="border-right: 0; font-size: small;">${people.authorityName}, ${people.placeName}</td>
+                  <td style="border-right: 0; font-size: small;">${people.serialNum}</td>
+                  <td style="border-right: 0; font-size: small;">${people.validFrom}</td>
+                  <td style="font-size: small;">${people.validTo}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-divider"></div>
+            <table class="bt__snd_table">
+              <thead>
+                <tr>
+                  <th colspan="5">
+                    <div class="document__fullname">Name, Vorname: ${formData.people[index + 1] ? formData.people[index + 1].FirstName : ''}</div>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="border-bottom: 0;border-right: 0;">Art</th>
+                  <th style="border-bottom: 0;border-right: 0;">Ausstellungsbehörde</th>
+                  <th style="border-bottom: 0;border-right: 0;">Seriennummer</th>
+                  <th style="border-bottom: 0;border-right: 0;">Datum</th>
+                  <th style="border-bottom: 0;">gültig bis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 0; font-size: small;">${formData.people[index + 1] ? formData.people[index + 1].document : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[index + 1] ? formData.people[index + 1].authorityName : ''}
+                    ${formData.people[index + 1] ? ',' : ''} ${formData.people[index + 1] ? formData.people[index + 1].placeName : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[index + 1] ? formData.people[index + 1].serialNum : ''}</td>
+                  <td style="border-right: 0; font-size: small;">${formData.people[index + 1] ? formData.people[index + 1].validFrom : ''}</td>
+                  <td style="font-size: small;">${formData.people[index + 1] ? formData.people[index + 1].validTo : ''}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>`
           );
         } 
     }).join('<div style="display: none;"></div>');

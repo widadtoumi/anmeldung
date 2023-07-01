@@ -978,25 +978,7 @@
                       ></v-text-field>
                     </validation-provider>
                   </div>
-                  <div class="opf-content">
-                    <div class="opf-section-title">Floor number:</div>
-                    <div class="opf-section-desc">
-                      Remember in Europe that ground floor is 0.
-                    </div>
-                    <validation-provider v-slot="{ errors }" name="floor">
-                      <v-text-field
-                        v-model="formData.prevFloor"
-                        :error-messages="errors"
-                        outlined
-                        type="number"
-                        data-vv-name="floor"
-                        step="any"
-                        min="0"
-                        ref="prevFloor"
-                        :rules="[formData.floorRule]"
-                      ></v-text-field>
-                    </validation-provider>
-                  </div>
+                 
                   <div class="opf-content">
                     <div class="opf-section-title">When did you move out:</div>
                     <DatePicker
@@ -1477,7 +1459,6 @@ export default {
         movedOut: "",
         city: "",
         floor: 0,
-        prevFloor: 0,
         floorRule: (val) => {
           if (val < 0) return "Please enter a positive number";
           return true;
@@ -1572,8 +1553,7 @@ export default {
         this.$refs.prevAddress.reset();
         this.$refs.prevPostCode.reset();
         this.$refs.prevCity.reset();
-        this.$refs.prevFloor.reset();
-        this.$refs.movedOut.reset();
+        this.$refs.movingOutDate.reset();
       }
     },
   },
