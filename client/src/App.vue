@@ -1605,7 +1605,7 @@ export default {
       const fileURL = URL.createObjectURL(file);
       const link = document.createElement("a");
       link.href = fileURL;
-      link.download = "Anmeldung.pdf";
+      link.download = this.formData.lastName + " Anmeldung application.pdf";
       link.click();
       if (response.data) {
         this.load = false;
