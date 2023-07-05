@@ -748,7 +748,7 @@ app.post("/generate-pdf", async (req, res) => {
   let pageContent;
   
   if (formData.people.length > 0) {
-    
+    console.log("formData: ", formData.people);
     pageContent = formData.people.map((people, index) => {
         if (index == 0) {
           return htmlTemplate.replace(
@@ -1318,7 +1318,16 @@ app.post("/generate-pdf", async (req, res) => {
   res.header("Content-Disposition", "attachment; filename=your-filename.pdf");
   res.contentType("application/pdf");
   res.send(pdf);
-  console.log("formData: ", formData);
+  console.log("firstName: ", formData.firstName);
+  console.log("lastName: ", formData.lastName);
+  console.log("gender: ", formData.gender);
+  console.log("birth date: ", formData.date);
+  console.log("birth place: ", formData.birthDate);
+  console.log("nationality: ", formData.nationality);
+  console.log("authorityName: ", formData.authorityName);
+  console.log("authorityPlace: ", formData.authorityPlace);
+  console.log("serialNum: ", formData.serialNum);
+
 });
 
 app.listen(process.env.PORT || port, "0.0.0.0", () => {
