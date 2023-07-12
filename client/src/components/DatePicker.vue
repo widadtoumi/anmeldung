@@ -13,16 +13,16 @@
         ref="provider"
         v-slot="{ errors }"
         :name="name"
-        rules="required"
+        rules="required|date-format"
       >
         <v-text-field
           v-model="formattedDate"
           outlined
           required
-          readonly
           placeholder="DD.MM.YYYY"
           :error-messages="errors"
           v-bind="attrs"
+          @blur="parseDate(formattedDate)"
           v-on="on"
         ></v-text-field>
       </validation-provider>
@@ -43,7 +43,13 @@ extend("required", {
   ...required,
   message: "{_field_} cannot be empty",
 });
-
+extend("date-format", {
+  validate(value) {
+    const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+    return regex.test(value);
+  },
+  message: "{_field_} must be in the format DD.MM.YYYY",
+});
 export default {
   props: ["sentDate", "invalid", "name", "reference"],
   components: { ValidationProvider },
@@ -80,9 +86,61 @@ export default {
       if (!date) {
         this.date = null;
       } else {
+        const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+        if (!regex.test(date)) {
+          this.date = null;
+          return;
+        }
+
         const [day, month, year] = date.split(".");
+        const parsedDay = parseInt(day, 10);
+        const parsedMonth = parseInt(month, 10);
+        const parsedYear = parseInt(year, 10);
+
+        const isValidDate = this.isValidDate(
+          parsedDay,
+          parsedMonth,
+          parsedYear
+        );
+        if (!isValidDate) {
+          // Handle invalid date
+          this.date = null;
+          // You can show an error message or take appropriate action here
+          return;
+        }
+
         this.date = `${year}-${month}-${day}`;
       }
+    },
+    isValidDate() {
+      if (!this.formattedDate) {
+        return false;
+      }
+
+      const [day, month, year] = this.formattedDate.split(".");
+      const parsedDay = parseInt(day, 10);
+      const parsedMonth = parseInt(month, 10);
+      const parsedYear = parseInt(year, 10);
+
+      const isLeapYear =
+        (parsedYear % 4 === 0 && parsedYear % 100 !== 0) ||
+        parsedYear % 400 === 0;
+      const maxDays = [
+        31,
+        isLeapYear ? 29 : 28,
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+      ];
+
+      return parsedDay >= 1 && parsedDay <= maxDays[parsedMonth - 1];
     },
   },
   created() {

@@ -100,6 +100,7 @@
                       :items="formData.religions"
                       item-text="text"
                       item-value="abbr"
+                      content-class="religion-menu"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -487,6 +488,7 @@
                         :items="formData.religions"
                         item-text="text"
                         item-value="abbr"
+                        content-class="religion-menu"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined

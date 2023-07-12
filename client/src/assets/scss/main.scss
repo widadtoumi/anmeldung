@@ -9,6 +9,9 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+  .religion-menu {
+    height: unset!important;
+  }
   #app {
     font-family: "Merriweather Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
