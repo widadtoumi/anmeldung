@@ -100,7 +100,7 @@
                       :items="formData.religions"
                       item-text="text"
                       item-value="abbr"
-                      content-class="religion-menu"
+                      :menu-props="{ maxHeight: 'unset' }"
                       :error-messages="errors"
                       label="- Please choose -"
                       outlined
@@ -488,7 +488,7 @@
                         :items="formData.religions"
                         item-text="text"
                         item-value="abbr"
-                        content-class="religion-menu"
+                        :menu-props="{ maxHeight: 'unset' }"
                         :error-messages="errors"
                         label="- Please choose -"
                         outlined
@@ -980,7 +980,7 @@
                       ></v-text-field>
                     </validation-provider>
                   </div>
-                 
+
                   <div class="opf-content">
                     <div class="opf-section-title">When did you move out:</div>
                     <DatePicker
